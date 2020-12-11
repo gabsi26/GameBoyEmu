@@ -117,6 +117,41 @@ TEST_F(_8BitLoadTests, LDLnCanLoadAValueIntoRegisterL)
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
+TEST_F(_8BitLoadTests, LDHLnCanLoadAValueImmediateIntoAddressHL)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_LD_HLn);
+	cpu.mem->write_to_address(0x101, 0xAA);
+	cpu.regs->HL = 0x0200;
+	cpu.regs->pc = 0x100;
+	cpu.mem->write_to_address(0x200, 0x00);
+	Byte expected_machine_cycles = 3;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xAA);
+	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_8BitLoadTests, LDAnCanLoadAValueIntoRegisterA)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_LD_An);
+	cpu.mem->write_to_address(0x101, 0x42);
+	cpu.regs->A = 0x00;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 2;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.regs->A, 0x42);
+	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
 // from register into register
 TEST_F(_8BitLoadTests, LDAACanLoadAValueFromRegisterAIntoRegisterA)
 {
@@ -252,6 +287,64 @@ TEST_F(_8BitLoadTests, LDAHLCanLoadAValueFromAddress_HL_IntoRegisterA)
 	EXPECT_EQ(cpu.regs->pc, 0x101);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
+
+TEST_F(_8BitLoadTests, LDABCCanLoadAValueFromAddress_BC_IntoRegisterA)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_LD_ABC);
+	cpu.regs->A = 0x10;
+	cpu.regs->BC = 0x0200;
+	cpu.regs->pc = 0x100;
+	cpu.mem->write_to_address(0x200, 0xAA);
+	Byte expected_machine_cycles = 2;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.regs->A, 0xAA);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_8BitLoadTests, LDADECanLoadAValueFromAddress_DE_IntoRegisterA)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_LD_ADE);
+	cpu.regs->A = 0x10;
+	cpu.regs->DE = 0x0200;
+	cpu.regs->pc = 0x100;
+	cpu.mem->write_to_address(0x200, 0xAA);
+	Byte expected_machine_cycles = 2;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.regs->A, 0xAA);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_8BitLoadTests, LDAnnCanLoadAValueFromAddress_nn_IntoRegisterA)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_LD_Ann);
+	cpu.regs->A = 0x10;
+	cpu.mem->write_to_address(0x101, 0x00);
+	cpu.mem->write_to_address(0x102, 0x02);
+	cpu.regs->pc = 0x100;
+	cpu.mem->write_to_address(0x200, 0xAA);
+	Byte expected_machine_cycles = 4;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.regs->A, 0xAA);
+	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+
+
 
 TEST_F(_8BitLoadTests, LDBBCanLoadAValueFromRegisterBIntoRegisterB)
 {
@@ -1073,20 +1166,3 @@ TEST_F(_8BitLoadTests, LDHLLCanLoadAValueFromRegisterLIntoAddressHL)
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
-TEST_F(_8BitLoadTests, LDHLnCanLoadAValueImmediateIntoAddressHL)
-{
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_LD_HLn);
-	cpu.mem->write_to_address(0x101, 0xAA);
-	cpu.regs->HL = 0x0200;
-	cpu.regs->pc = 0x100;
-	cpu.mem->write_to_address(0x200, 0x00);
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
-}

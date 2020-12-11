@@ -36,6 +36,13 @@ GZ80::Byte GZ80::CPU::fetch_byte(bool increment_cycles)
 	return mem->read_from_address(regs->pc++);
 }
 
+GZ80::Word GZ80::CPU::fetch_word()
+{
+	Byte lsB = fetch_byte();
+	Byte msB = fetch_byte();
+	return ((Word)msB << 8) | (Word)lsB;
+}
+
 void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 {
 	while (cycles->mc < machine_cycles)
@@ -79,6 +86,18 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				regs->L = value;
 				cycles->increment_cycles(1);
 			} break;
+			case INS_LD_HLn:
+			{
+				Byte value = fetch_byte();
+				mem->write_to_address(regs->HL, value);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LD_An:
+			{
+				Byte value = fetch_byte();
+				regs->A = value;
+				cycles->increment_cycles(1);
+			} break;
 
 			case INS_LD_AA:
 			{
@@ -120,6 +139,24 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				regs->A = mem->read_from_address(regs->HL);
 				cycles->increment_cycles(2);
 			} break;
+			case INS_LD_ABC:
+			{
+				regs->A = mem->read_from_address(regs->BC);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LD_ADE:
+			{
+				regs->A = mem->read_from_address(regs->DE);
+				cycles->increment_cycles(2);
+			} break;
+
+			case INS_LD_Ann:
+			{
+				Word address = fetch_word();
+				regs->A = mem->read_from_address(address);
+				cycles->increment_cycles(2);
+			} break;
+
 			case INS_LD_BB:
 			{
 				regs->B = regs->B;
@@ -360,12 +397,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				mem->write_to_address(regs->HL, regs->L);
 				cycles->increment_cycles(2);
 			} break;
-			case INS_LD_HLn:
-			{
-				Byte value = fetch_byte();
-				mem->write_to_address(regs->HL, value);
-				cycles->increment_cycles(2);
-			} break;
+			
 
 
 			default:

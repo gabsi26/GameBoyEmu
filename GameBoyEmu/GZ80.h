@@ -93,6 +93,8 @@ namespace GZ80
 			INS_LD_En = 0x1E,
 			INS_LD_Hn = 0x26,
 			INS_LD_Ln = 0x2E,
+			INS_LD_HLn = 0x36,
+			INS_LD_An = 0x3E,
 
 			INS_LD_AA = 0x7F,
 			INS_LD_AB = 0x78,
@@ -102,6 +104,11 @@ namespace GZ80
 			INS_LD_AH = 0x7C,
 			INS_LD_AL = 0x7D,
 			INS_LD_AHL = 0x7E,
+			INS_LD_ABC = 0x0A,
+			INS_LD_ADE = 0x1A,
+			INS_LD_Ann = 0xFA,
+
+
 			INS_LD_BB = 0x40,
 			INS_LD_BC = 0x41,
 			INS_LD_BD = 0x42,
@@ -149,11 +156,11 @@ namespace GZ80
 			INS_LD_HLD = 0x72,
 			INS_LD_HLE = 0x73,
 			INS_LD_HLH = 0x74,
-			INS_LD_HLL = 0x75,
-			INS_LD_HLn = 0x36;
+			INS_LD_HLL = 0x75;
 	public:
 		CPU();
 		Byte fetch_byte(bool increment_cycles = true);
+		Word fetch_word();
 		void execute(Byte opcode, Word clock_cycles);
 
 
