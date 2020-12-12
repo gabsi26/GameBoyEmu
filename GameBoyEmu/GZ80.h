@@ -10,6 +10,7 @@ namespace GZ80
 	using Byte = uint8_t;
 	using SByte = int8_t;
 	using Word = uint16_t;
+	using SWord = int16_t;
 #endif
 	struct Cycles
 	{
@@ -85,11 +86,7 @@ namespace GZ80
 		Cycles* cycles;
 		Regs* regs;
 		Memory* mem;
-		Bit bit_add(Bit first, Bit second, bool& carry);
-		Byte four_bit_add(Byte first, Byte second, bool& carry);
-		Byte byte_add(Byte first, Byte second, bool& carry, bool& half_carry);
-		Word word_add_lower_flags(Word first, Byte second, bool& carry, bool& half_carry);
-		Word word_add_higher_flags(Word first, Byte second, bool& carry, bool& half_carry);
+
 		void load_8_bit_value(Word& reg, Byte value);
 		static constexpr Byte
 			// ###### 8 bit loads ######

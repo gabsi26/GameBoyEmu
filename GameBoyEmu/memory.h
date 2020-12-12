@@ -10,6 +10,7 @@ namespace GZ80
 	using Byte = uint8_t;
 	using SByte = int8_t;
 	using Word = uint16_t;
+	using SWord = int16_t;
 #endif
 	class Memory
 	{

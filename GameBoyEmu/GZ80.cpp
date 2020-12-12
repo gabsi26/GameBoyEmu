@@ -42,50 +42,6 @@ GZ80::Word GZ80::CPU::fetch_word()
 	Byte msB = fetch_byte();
 	return ((Word)msB << 8) | (Word)lsB;
 }
-GZ80::Bit GZ80::CPU::bit_add(Bit first, Bit second, bool& carry)
-{
-	Bit result = first ^ second ^ carry;
-	carry = (first && second) || (first && carry) || (second && carry);
-	return result;
-}
-
-GZ80::Byte GZ80::CPU::four_bit_add(Byte first, Byte second, bool& carry)
-{
-	Byte result = bit_add(first & 0b1, second & 0b1, carry);
-	for (int i = 1; i < 4; i++)
-	{
-		result += (bit_add(first & (0b1 << i), second & (0b1 << i), carry) << i);
-	}
-	return result;
-}
-
-GZ80::Byte GZ80::CPU::byte_add(Byte first, Byte second, bool& carry, bool& half_carry)
-{
-	Byte result = four_bit_add(first & 0xF, second & 0xF, half_carry);
-	carry = half_carry;
-	result += (four_bit_add((first & 0xF0) >> 4, (second & 0xF0) >> 4, carry) << 4);
-	return result;
-}
-
-GZ80::Word GZ80::CPU::word_add_lower_flags(Word first, Byte second, bool& carry, bool& half_carry)
-{
-	bool carries[] = { false, false };
-	Word result = byte_add(first & 0xFF, second, carry, half_carry);
-	carries[0] = half_carry;
-	carries[1] = carry;
-	result += (byte_add((first & 0xFF00) >> 8, 0, carry, half_carry) << 8);
-	carry = carries[1];
-	half_carry = carries[0];
-	return result;
-}
-
-GZ80::Word GZ80::CPU::word_add_higher_flags(Word first, Byte second, bool& carry, bool& half_carry)
-{
-	Byte result = four_bit_add(first & 0xF, second & 0xF, half_carry);
-	carry = half_carry;
-	result += (bit_add(first & 0xF0, second & 0xF0, carry) << 0x4);
-	return result;
-}
 
 void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 {
@@ -588,13 +544,11 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 			case INS_LDHL_SPn:
 			{
 				SByte value = fetch_byte();
-				bool carry = regs->carry;
-				bool half_carry = regs->half_carry;
-				regs->HL = word_add_lower_flags(regs->sp, value, carry, half_carry);
+				regs->HL = regs->sp + value;
+				regs->carry = (((regs->sp >> 7) & 0b1) ^ (value >> 7)) != ((regs->HL >> 7) & 0b1);
+				regs->half_carry = (((regs->sp >> 3) & 0b1) ^ (value >> 3)) != ((regs->HL >> 3) & 0b1);
 				regs->zero = 0;
 				regs->negative = 0;
-				regs->half_carry = half_carry;
-				regs->carry = carry;
 				cycles->increment_cycles(2);
 			} break;
 
