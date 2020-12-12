@@ -36,7 +36,9 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="16_bit_load_tests.cpp" />
     <ClCompile Include="8_bit_load_tests.cpp" />
+    <ClCompile Include="helper_function_tests.cpp" />
     <ClCompile Include="initialisation_tests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

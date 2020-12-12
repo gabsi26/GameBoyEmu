@@ -42,6 +42,50 @@ GZ80::Word GZ80::CPU::fetch_word()
 	Byte msB = fetch_byte();
 	return ((Word)msB << 8) | (Word)lsB;
 }
+GZ80::Bit GZ80::CPU::bit_add(Bit first, Bit second, bool& carry)
+{
+	Bit result = first ^ second ^ carry;
+	carry = (first && second) || (first && carry) || (second && carry);
+	return result;
+}
+
+GZ80::Byte GZ80::CPU::four_bit_add(Byte first, Byte second, bool& carry)
+{
+	Byte result = bit_add(first & 0b1, second & 0b1, carry);
+	for (int i = 1; i < 4; i++)
+	{
+		result += (bit_add(first & (0b1 << i), second & (0b1 << i), carry) << i);
+	}
+	return result;
+}
+
+GZ80::Byte GZ80::CPU::byte_add(Byte first, Byte second, bool& carry, bool& half_carry)
+{
+	Byte result = four_bit_add(first & 0xF, second & 0xF, half_carry);
+	carry = half_carry;
+	result += (four_bit_add((first & 0xF0) >> 4, (second & 0xF0) >> 4, carry) << 4);
+	return result;
+}
+
+GZ80::Word GZ80::CPU::word_add_lower_flags(Word first, Byte second, bool& carry, bool& half_carry)
+{
+	bool carries[] = { false, false };
+	Word result = byte_add(first & 0xFF, second, carry, half_carry);
+	carries[0] = half_carry;
+	carries[1] = carry;
+	result += (byte_add((first & 0xFF00) >> 8, 0, carry, half_carry) << 8);
+	carry = carries[1];
+	half_carry = carries[0];
+	return result;
+}
+
+GZ80::Word GZ80::CPU::word_add_higher_flags(Word first, Byte second, bool& carry, bool& half_carry)
+{
+	Byte result = four_bit_add(first & 0xF, second & 0xF, half_carry);
+	carry = half_carry;
+	result += (bit_add(first & 0xF0, second & 0xF0, carry) << 0x4);
+	return result;
+}
 
 void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 {
@@ -49,7 +93,8 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 	{
 		switch (opcode)
 		{
-			// 8 bit loads
+			// ######### 8 bit loads ###########
+			// immediate
 			case INS_LD_Bn:
 			{
 				Byte value = fetch_byte();
@@ -99,6 +144,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				cycles->increment_cycles(1);
 			} break;
 
+			// store into A
 			case INS_LD_AA:
 			{
 				regs->A = regs->A;
@@ -157,6 +203,71 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				cycles->increment_cycles(2);
 			} break;
 
+			case INS_LD_A_C_:
+			{
+				regs->A = mem->read_from_address(0xFF00 + regs->C);
+				cycles->increment_cycles(2);
+			} break;
+
+			//load from A
+			case INS_LD_BA:
+			{
+				regs->B = regs->A;
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_CA:
+			{
+				regs->C = regs->A;
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_DA:
+			{
+				regs->D = regs->A;
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_EA:
+			{
+				regs->E = regs->A;
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_HA:
+			{
+				regs->H = regs->A;
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_LA:
+			{
+				regs->L = regs->A;
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_BCA:
+			{
+				mem->write_to_address(regs->BC, regs->A);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LD_DEA:
+			{
+				mem->write_to_address(regs->DE, regs->A);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LD_HLA:
+			{
+				mem->write_to_address(regs->HL, regs->A);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LD_nnA:
+			{
+				Word address = fetch_word();
+				mem->write_to_address(address, regs->A);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LD_C_A:
+			{
+				mem->write_to_address(0xFF00 + regs->C, regs->A);
+				cycles->increment_cycles(2);
+			} break;
+
+			// store into B
 			case INS_LD_BB:
 			{
 				regs->B = regs->B;
@@ -192,6 +303,8 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				regs->B = mem->read_from_address(regs->HL);
 				cycles->increment_cycles(2);
 			} break;
+
+			// store into C
 			case INS_LD_CB:
 			{
 				regs->C = regs->B;
@@ -227,6 +340,8 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				regs->C = mem->read_from_address(regs->HL);
 				cycles->increment_cycles(2);
 			} break;
+
+			// store into D
 			case INS_LD_DB:
 			{
 				regs->D = regs->B;
@@ -262,6 +377,8 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				regs->D = mem->read_from_address(regs->HL);
 				cycles->increment_cycles(2);
 			} break;
+
+			// store into E
 			case INS_LD_EB:
 			{
 				regs->E = regs->B;
@@ -297,6 +414,8 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				regs->E = mem->read_from_address(regs->HL);
 				cycles->increment_cycles(2);
 			} break;
+
+			// store into H
 			case INS_LD_HB:
 			{
 				regs->H = regs->B;
@@ -332,6 +451,8 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				regs->H = mem->read_from_address(regs->HL);
 				cycles->increment_cycles(2);
 			} break;
+
+			// store into L
 			case INS_LD_LB:
 			{
 				regs->L = regs->B;
@@ -372,6 +493,8 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				mem->write_to_address(regs->HL, regs->B);
 				cycles->increment_cycles(2);
 			} break;
+
+			// store into address _HL_
 			case INS_LD_HLC:
 			{
 				mem->write_to_address(regs->HL, regs->BC);
@@ -398,7 +521,82 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				cycles->increment_cycles(2);
 			} break;
 			
+			// store and decrement/increment 
+			case INS_LDD_A_HL_:
+			{
+				regs->A = mem->read_from_address(regs->HL--);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LDD_HL_A:
+			{
+				mem->write_to_address(regs->HL--, regs->A);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LDI_A_HL_:
+			{
+				regs->A = mem->read_from_address(regs->HL++);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LDI_HL_A:
+			{
+				mem->write_to_address(regs->HL++, regs->A);
+				cycles->increment_cycles(2);
+			} break;
 
+			// store and load at 0xFF00 + n
+			case INS_LDH_nA:
+			{
+				Byte lo = fetch_byte();
+				mem->write_to_address(0xFF00 + lo, regs->A);
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LDH_An:
+			{
+				Byte lo = fetch_byte();
+				regs->A = mem->read_from_address(0xFF00 + lo);
+				cycles->increment_cycles(2);
+			} break;
+
+			// ######### 16 bit loads ###########
+			// immediate
+			case INS_LD_BCnn:
+			{
+				regs->BC = fetch_word();
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_DEnn:
+			{
+				regs->DE = fetch_word();
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_HLnn:
+			{
+				regs->HL = fetch_word();
+				cycles->increment_cycles(1);
+			} break;
+			case INS_LD_SPnn:
+			{
+				regs->sp = fetch_word();
+				cycles->increment_cycles(1);
+			} break;
+			// stack load and store operations
+			case INS_LD_SPHL:
+			{
+				regs->sp = regs->HL;
+				cycles->increment_cycles(2);
+			} break;
+			case INS_LDHL_SPn:
+			{
+				SByte value = fetch_byte();
+				bool carry = regs->carry;
+				bool half_carry = regs->half_carry;
+				regs->HL = word_add_lower_flags(regs->sp, value, carry, half_carry);
+				regs->zero = 0;
+				regs->negative = 0;
+				regs->half_carry = half_carry;
+				regs->carry = carry;
+				cycles->increment_cycles(2);
+			} break;
 
 			default:
 				return;

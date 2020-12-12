@@ -6,7 +6,9 @@ namespace GZ80
 {
 #ifndef BYTE_WORD
 #define BYTE_WORD
+	using Bit = bool;
 	using Byte = uint8_t;
+	using SByte = int8_t;
 	using Word = uint16_t;
 #endif
 	class Memory
