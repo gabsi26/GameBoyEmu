@@ -201,7 +201,7 @@ void GZ80::CPU::pop_value_from_stack(Word& reg)
 	cycles->increment_cycles(3);
 }
 
-GZ80::Byte GZ80::CPU::left_shift(Byte value, bool through_carry)
+GZ80::Byte GZ80::CPU::rotate_left(Byte value, bool through_carry)
 {
 	cycles->increment_cycles(1);
 	regs->half_carry = regs->negative = 0;
@@ -220,7 +220,7 @@ GZ80::Byte GZ80::CPU::left_shift(Byte value, bool through_carry)
 	return result;
 }
 
-GZ80::Byte GZ80::CPU::right_shift(Byte value, bool through_carry)
+GZ80::Byte GZ80::CPU::rotate_right(Byte value, bool through_carry)
 {
 	cycles->increment_cycles(1);
 	regs->half_carry = regs->negative = 0;
@@ -234,6 +234,35 @@ GZ80::Byte GZ80::CPU::right_shift(Byte value, bool through_carry)
 	else
 	{
 		result = ((value >> 1) + (old_carry << 7));
+	}
+	regs->zero = result == 0;
+	return result;
+}
+
+GZ80::Byte GZ80::CPU::shift_left(Byte value)
+{
+	cycles->increment_cycles(1);
+	regs->half_carry = regs->negative = 0;
+	regs->carry = (value & 0x80) >> 7;
+	Byte result = (value << 1);
+	regs->zero = result == 0;
+	return result;
+}
+
+GZ80::Byte GZ80::CPU::shift_right(Byte value, bool logical)
+{
+	cycles->increment_cycles(1);
+	regs->half_carry = regs->negative = 0;
+	Byte bit_7 = (value & 0x80) >> 7;
+	regs->carry = (value & 0x01);
+	Byte result;
+	if (logical)
+	{
+		result = (value >> 1);
+	}
+	else
+	{
+		result = ((value >> 1) + (bit_7 << 7));
 	}
 	regs->zero = result == 0;
 	return result;
@@ -1232,19 +1261,19 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 			// ###### Rotates and Shifts #########
 			case INS_RLCA:
 			{
-				regs->A = left_shift(regs->A);
+				regs->A = rotate_left(regs->A);
 			} break;
 			case INS_RLA:
 			{
-				regs->A = left_shift(regs->A, true);
+				regs->A = rotate_left(regs->A, true);
 			} break;
 			case INS_RRCA:
 			{
-				regs->A = right_shift(regs->A);
+				regs->A = rotate_right(regs->A);
 			} break;
 			case INS_RRA:
 			{
-				regs->A = right_shift(regs->A, true);
+				regs->A = rotate_right(regs->A, true);
 			} break;
 
 
@@ -1267,70 +1296,242 @@ void GZ80::CPU::cb_handler()
 	switch (opcode)
 	{
 		// ######### Rotations and shifts #############
+		// RLC
 		case INS_RLC_A:
 		{
-			regs->A = left_shift(regs->A);
+			regs->A = rotate_left(regs->A);
 		} break;
 		case INS_RLC_B:
 		{
-			regs->B = left_shift(regs->B);
+			regs->B = rotate_left(regs->B);
 		} break;
 		case INS_RLC_C:
 		{
-			regs->C = left_shift(regs->C);
+			regs->C = rotate_left(regs->C);
 		} break;
 		case INS_RLC_D:
 		{
-			regs->D = left_shift(regs->D);
+			regs->D = rotate_left(regs->D);
 		} break;
 		case INS_RLC_E:
 		{
-			regs->E = left_shift(regs->E);
+			regs->E = rotate_left(regs->E);
 		} break;
 		case INS_RLC_H:
 		{
-			regs->H = left_shift(regs->H);
+			regs->H = rotate_left(regs->H);
 		} break;
 		case INS_RLC_L:
 		{
-			regs->L = left_shift(regs->L);
+			regs->L = rotate_left(regs->L);
 		} break;
 		case INS_RLC_HL_:
 		{
-			mem->write_to_address(regs->HL, left_shift(mem->read_from_address(regs->HL)));
+			mem->write_to_address(regs->HL, rotate_left(mem->read_from_address(regs->HL)));
 			cycles->increment_cycles(2);
 		} break;
+		// RL
 		case INS_RL_A:
 		{
-			regs->A = left_shift(regs->A, true);
+			regs->A = rotate_left(regs->A, true);
 		} break;
 		case INS_RL_B:
 		{
-			regs->B = left_shift(regs->B, true);
+			regs->B = rotate_left(regs->B, true);
 		} break;
 		case INS_RL_C:
 		{
-			regs->C = left_shift(regs->C, true);
+			regs->C = rotate_left(regs->C, true);
 		} break;
 		case INS_RL_D:
 		{
-			regs->D = left_shift(regs->D, true);
+			regs->D = rotate_left(regs->D, true);
 		} break;
 		case INS_RL_E:
 		{
-			regs->E = left_shift(regs->E, true);
+			regs->E = rotate_left(regs->E, true);
 		} break;
 		case INS_RL_H:
 		{
-			regs->H = left_shift(regs->H, true);
+			regs->H = rotate_left(regs->H, true);
 		} break;
 		case INS_RL_L:
 		{
-			regs->L = left_shift(regs->L, true);
+			regs->L = rotate_left(regs->L, true);
 		} break;
 		case INS_RL_HL_:
 		{
-			mem->write_to_address(regs->HL, left_shift(mem->read_from_address(regs->HL), true));
+			mem->write_to_address(regs->HL, rotate_left(mem->read_from_address(regs->HL), true));
+			cycles->increment_cycles(2);
+		} break;
+		//RRC
+		case INS_RRC_A:
+		{
+			regs->A = rotate_right(regs->A);
+		} break;
+		case INS_RRC_B:
+		{
+			regs->B = rotate_right(regs->B);
+		} break;
+		case INS_RRC_C:
+		{
+			regs->C = rotate_right(regs->C);
+		} break;
+		case INS_RRC_D:
+		{
+			regs->D = rotate_right(regs->D);
+		} break;
+		case INS_RRC_E:
+		{
+			regs->E = rotate_right(regs->E);
+		} break;
+		case INS_RRC_H:
+		{
+			regs->H = rotate_right(regs->H);
+		} break;
+		case INS_RRC_L:
+		{
+			regs->L = rotate_right(regs->L);
+		} break;
+		case INS_RRC_HL_:
+		{
+			mem->write_to_address(regs->HL, rotate_right(mem->read_from_address(regs->HL)));
+			cycles->increment_cycles(2);
+		} break;
+		// RR
+		case INS_RR_A:
+		{
+			regs->A = rotate_right(regs->A, true);
+		} break;
+		case INS_RR_B:
+		{
+			regs->B = rotate_right(regs->B, true);
+		} break;
+		case INS_RR_C:
+		{
+			regs->C = rotate_right(regs->C, true);
+		} break;
+		case INS_RR_D:
+		{
+			regs->D = rotate_right(regs->D, true);
+		} break;
+		case INS_RR_E:
+		{
+			regs->E = rotate_right(regs->E, true);
+		} break;
+		case INS_RR_H:
+		{
+			regs->H = rotate_right(regs->H, true);
+		} break;
+		case INS_RR_L:
+		{
+			regs->L = rotate_right(regs->L, true);
+		} break;
+		case INS_RR_HL_:
+		{
+			mem->write_to_address(regs->HL, rotate_right(mem->read_from_address(regs->HL), true));
+			cycles->increment_cycles(2);
+		} break;
+		// SLA
+		case INS_SLA_A:
+		{
+			regs->A = shift_left(regs->A);
+		} break;
+		case INS_SLA_B:
+		{
+			regs->B = shift_left(regs->B);
+		} break;
+		case INS_SLA_C:
+		{
+			regs->C = shift_left(regs->C);
+		} break;
+		case INS_SLA_D:
+		{
+			regs->D = shift_left(regs->D);
+		} break;
+		case INS_SLA_E:
+		{
+			regs->E = shift_left(regs->E);
+		} break;
+		case INS_SLA_H:
+		{
+			regs->H = shift_left(regs->H);
+		} break;
+		case INS_SLA_L:
+		{
+			regs->L = shift_left(regs->L);
+		} break;
+		case INS_SLA_HL_:
+		{
+			mem->write_to_address(regs->HL, shift_left(mem->read_from_address(regs->HL)));
+			cycles->increment_cycles(2);
+		} break;
+		// SRA
+		case INS_SRA_A:
+		{
+			regs->A = shift_right(regs->A);
+		} break;
+		case INS_SRA_B:
+		{
+			regs->B = shift_right(regs->B);
+		} break;
+		case INS_SRA_C:
+		{
+			regs->C = shift_right(regs->C);
+		} break;
+		case INS_SRA_D:
+		{
+			regs->D = shift_right(regs->D);
+		} break;
+		case INS_SRA_E:
+		{
+			regs->E = shift_right(regs->E);
+		} break;
+		case INS_SRA_H:
+		{
+			regs->H = shift_right(regs->H);
+		} break;
+		case INS_SRA_L:
+		{
+			regs->L = shift_right(regs->L);
+		} break;
+		case INS_SRA_HL_:
+		{
+			mem->write_to_address(regs->HL, shift_right(mem->read_from_address(regs->HL)));
+			cycles->increment_cycles(2);
+		} break;
+		// SRL
+		case INS_SRL_A:
+		{
+			regs->A = shift_right(regs->A, true);
+		} break;
+		case INS_SRL_B:
+		{
+			regs->B = shift_right(regs->B, true);
+		} break;
+		case INS_SRL_C:
+		{
+			regs->C = shift_right(regs->C, true);
+		} break;
+		case INS_SRL_D:
+		{
+			regs->D = shift_right(regs->D, true);
+		} break;
+		case INS_SRL_E:
+		{
+			regs->E = shift_right(regs->E, true);
+		} break;
+		case INS_SRL_H:
+		{
+			regs->H = shift_right(regs->H, true);
+		} break;
+		case INS_SRL_L:
+		{
+			regs->L = shift_right(regs->L, true);
+		} break;
+		case INS_SRL_HL_:
+		{
+			mem->write_to_address(regs->HL, shift_right(mem->read_from_address(regs->HL), true));
 			cycles->increment_cycles(2);
 		} break;
 		default:

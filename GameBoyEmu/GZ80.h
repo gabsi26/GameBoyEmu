@@ -105,8 +105,10 @@ namespace GZ80
 		void push_register_onto_stack(Word reg);
 		void pop_value_from_stack(Word& reg);
 		void load_8_bit_value(Word& reg, Byte value);
-		Byte left_shift(Byte value, bool through_carry = false);
-		Byte right_shift(Byte value, bool through_carry = false);
+		Byte rotate_left(Byte value, bool through_carry = false);
+		Byte rotate_right(Byte value, bool through_carry = false);
+		Byte shift_left(Byte value);
+		Byte shift_right(Byte value, bool logical = false);
 		void cb_handler();
 		static constexpr Byte
 			CB_INS = 0xCB,
@@ -348,6 +350,7 @@ namespace GZ80
 			INS_RLA = 0x17,
 			INS_RRCA = 0x0F,
 			INS_RRA = 0x1F,
+			// RLC
 			INS_RLC_A = 0x07,
 			INS_RLC_B = 0x00,
 			INS_RLC_C = 0x01,
@@ -356,6 +359,7 @@ namespace GZ80
 			INS_RLC_H = 0x04,
 			INS_RLC_L = 0x05,
 			INS_RLC_HL_ = 0x06,
+			// RL
 			INS_RL_A = 0x17,
 			INS_RL_B = 0x10,
 			INS_RL_C = 0x11,
@@ -363,8 +367,52 @@ namespace GZ80
 			INS_RL_E = 0x13,
 			INS_RL_H = 0x14,
 			INS_RL_L = 0x15,
-			INS_RL_HL_ = 0x16;
-
+			INS_RL_HL_ = 0x16,
+			// RRC
+			INS_RRC_A = 0x0F,
+			INS_RRC_B = 0x08,
+			INS_RRC_C = 0x09,
+			INS_RRC_D = 0x0A,
+			INS_RRC_E = 0x0B,
+			INS_RRC_H = 0x0C,
+			INS_RRC_L = 0x0D,
+			INS_RRC_HL_ = 0x0E,
+			// RR
+			INS_RR_A = 0x1F,
+			INS_RR_B = 0x18,
+			INS_RR_C = 0x19,
+			INS_RR_D = 0x1A,
+			INS_RR_E = 0x1B,
+			INS_RR_H = 0x1C,
+			INS_RR_L = 0x1D,
+			INS_RR_HL_ = 0x1E,
+			// SLA
+			INS_SLA_A = 0x27,
+			INS_SLA_B = 0x20,
+			INS_SLA_C = 0x21,
+			INS_SLA_D = 0x22,
+			INS_SLA_E = 0x23,
+			INS_SLA_H = 0x24,
+			INS_SLA_L = 0x25,
+			INS_SLA_HL_ = 0x26,
+			// SRA
+			INS_SRA_A = 0x2F,
+			INS_SRA_B = 0x28,
+			INS_SRA_C = 0x29,
+			INS_SRA_D = 0x2A,
+			INS_SRA_E = 0x2B,
+			INS_SRA_H = 0x2C,
+			INS_SRA_L = 0x2D,
+			INS_SRA_HL_ = 0x2E,
+			// SRL
+			INS_SRL_A = 0x3F,
+			INS_SRL_B = 0x38,
+			INS_SRL_C = 0x39,
+			INS_SRL_D = 0x3A,
+			INS_SRL_E = 0x3B,
+			INS_SRL_H = 0x3C,
+			INS_SRL_L = 0x3D,
+			INS_SRL_HL_ = 0x3E;
 
 	public:
 		CPU();
