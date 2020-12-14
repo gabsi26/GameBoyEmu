@@ -655,7 +655,13 @@ namespace GZ80
 			// Jump relative Non Carry
 			INS_JRNC = 0x30,
 			// Jump relative Carry
-			INS_JRC = 0x38;
+			INS_JRC = 0x38,
+			// ################ Calls and returns ############
+			INS_CALL = 0xCD,
+			INS_CALL_NZ = 0xC4,
+			INS_CALL_Z = 0xCC,
+			INS_CALL_NC = 0xD4,
+			INS_CALL_C = 0xDC;
 
 	public:
 		CPU();

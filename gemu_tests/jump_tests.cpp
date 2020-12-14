@@ -24,7 +24,7 @@ TEST_F(JumpTests, JumpImmediateJumpsToSpecifiedPosition)
 	cpu.mem->write_to_address(0x101, 0x00);
 	cpu.mem->write_to_address(0x102, 0x02);
 	cpu.regs->pc = 0x100;
-	Byte expected_machine_cycles = 3;
+	Byte expected_machine_cycles = 4;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -42,7 +42,7 @@ TEST_F(JumpTests, JumpNotZeroJumpsToSpecifiedPositionIfZeroFlagIsReset)
 	cpu.mem->write_to_address(0x102, 0x02);
 	cpu.regs->pc = 0x100;
 	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 3;
+	Byte expected_machine_cycles = 4;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -77,7 +77,7 @@ TEST_F(JumpTests, JumpZeroJumpsToSpecifiedPositionIfZeroFlagIsSet)
 	cpu.mem->write_to_address(0x102, 0x02);
 	cpu.regs->pc = 0x100;
 	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 3;
+	Byte expected_machine_cycles = 4;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -112,7 +112,7 @@ TEST_F(JumpTests, JumpNotCarryJumpsToSpecifiedPositionIfCarryFlagIsReset)
 	cpu.mem->write_to_address(0x102, 0x02);
 	cpu.regs->pc = 0x100;
 	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 3;
+	Byte expected_machine_cycles = 4;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -147,7 +147,7 @@ TEST_F(JumpTests, JumpCarryJumpsToSpecifiedPositionIfCarryFlagIsSet)
 	cpu.mem->write_to_address(0x102, 0x02);
 	cpu.regs->pc = 0x100;
 	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 3;
+	Byte expected_machine_cycles = 4;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -196,7 +196,7 @@ TEST_F(JumpTests, JumpRelativeJumpsForwards)
 	cpu.mem->write_to_address(0x100, CPU::INS_JR);
 	cpu.mem->write_to_address(0x101, 0x20);
 	cpu.regs->pc = 0x100;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -211,7 +211,7 @@ TEST_F(JumpTests, JumpRelativeJumpsBackwards)
 	cpu.mem->write_to_address(0x100, CPU::INS_JR);
 	cpu.mem->write_to_address(0x101, 0xA0);
 	cpu.regs->pc = 0x100;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -228,7 +228,7 @@ TEST_F(JumpTests, JumpRelativeNotZeroJumpsForwardsIfZeroFlagIsReset)
 	cpu.mem->write_to_address(0x101, 0x20);
 	cpu.regs->pc = 0x100;
 	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -260,7 +260,7 @@ TEST_F(JumpTests, JumpRelativeNotZeroJumpsBackwardsIfZeroFlagIsReset)
 	cpu.mem->write_to_address(0x101, 0xA0);
 	cpu.regs->pc = 0x100;
 	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -293,7 +293,7 @@ TEST_F(JumpTests, JumpRelativeZeroJumpsForwardsIfZeroFlagIsSet)
 	cpu.mem->write_to_address(0x101, 0x20);
 	cpu.regs->pc = 0x100;
 	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -325,7 +325,7 @@ TEST_F(JumpTests, JumpRelativeZeroJumpsBackwardsIfZeroFlagIsSet)
 	cpu.mem->write_to_address(0x101, 0xA0);
 	cpu.regs->pc = 0x100;
 	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -358,7 +358,7 @@ TEST_F(JumpTests, JumpRelativeNotCarryJumpsForwardsIfCarryFlagIsReset)
 	cpu.mem->write_to_address(0x101, 0x20);
 	cpu.regs->pc = 0x100;
 	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -390,7 +390,7 @@ TEST_F(JumpTests, JumpRelativeNotCarryJumpsBackwardsIfCarryFlagIsReset)
 	cpu.mem->write_to_address(0x101, 0xA0);
 	cpu.regs->pc = 0x100;
 	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -423,7 +423,7 @@ TEST_F(JumpTests, JumpRelativeCarryJumpsForwardsIfCarryFlagIsSet)
 	cpu.mem->write_to_address(0x101, 0x20);
 	cpu.regs->pc = 0x100;
 	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
@@ -455,7 +455,7 @@ TEST_F(JumpTests, JumpRelativeCarryJumpsBackwardsIfCarryFlagIsSet)
 	cpu.mem->write_to_address(0x101, 0xA0);
 	cpu.regs->pc = 0x100;
 	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 2;
+	Byte expected_machine_cycles = 3;
 	// when
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);

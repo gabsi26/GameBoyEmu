@@ -1302,7 +1302,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 			{
 				Word address = fetch_word();
 				regs->pc = address;
-				cycles->increment_cycles(1);
+				cycles->increment_cycles(2);
 			} break;
 			// Jump not Zero
 			case INS_JPNZ:
@@ -1311,6 +1311,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				if (!regs->zero)
 				{
 					regs->pc = address;
+					cycles->increment_cycles(1);
 				}
 				cycles->increment_cycles(1);
 			} break;
@@ -1321,6 +1322,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				if (regs->zero)
 				{
 					regs->pc = address;
+					cycles->increment_cycles(1);
 				}
 				cycles->increment_cycles(1);
 			} break;
@@ -1331,6 +1333,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				if (!regs->carry)
 				{
 					regs->pc = address;
+					cycles->increment_cycles(1);
 				}
 				cycles->increment_cycles(1);
 			} break;
@@ -1341,6 +1344,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				if (regs->carry)
 				{
 					regs->pc = address;
+					cycles->increment_cycles(1);
 				}
 				cycles->increment_cycles(1);
 			} break;
@@ -1355,7 +1359,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 			{
 				SByte offset = fetch_byte();
 				regs->pc += offset - 1;
-				cycles->increment_cycles(1);
+				cycles->increment_cycles(2);
 			} break;
 			// Jump relative not Zero
 			case INS_JRNZ:
@@ -1364,6 +1368,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				if (!regs->zero)
 				{
 					regs->pc += offset - 1;
+					cycles->increment_cycles(1);
 				}
 				cycles->increment_cycles(1);
 			} break;
@@ -1374,6 +1379,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				if (regs->zero)
 				{
 					regs->pc += offset - 1;
+					cycles->increment_cycles(1);
 				}
 				cycles->increment_cycles(1);
 			} break;
@@ -1384,6 +1390,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				if (!regs->carry)
 				{
 					regs->pc += offset - 1;
+					cycles->increment_cycles(1);
 				}
 				cycles->increment_cycles(1);
 			} break;
@@ -1394,9 +1401,11 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				if (regs->carry)
 				{
 					regs->pc += offset - 1;
+					cycles->increment_cycles(1);
 				}
 				cycles->increment_cycles(1);
 			} break;
+			// ########## Calls and returns ###########
 
 
 			case CB_INS:
