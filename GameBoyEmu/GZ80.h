@@ -86,9 +86,30 @@ namespace GZ80
 		Cycles* cycles;
 		Regs* regs;
 		Memory* mem;
-
+		void set_carries(Word reg, Word value, Word result, bool lo_carry = true);
+		void set_carries(Byte reg, Byte value, Byte result);
+		void set_carries_borrow(Byte reg, Byte value, Byte result);
+		void add_to_accumulator(Byte value);
+		void addc_to_accumulator(Byte value);
+		void subtract_from_accumulator(Byte value);
+		void subtractc_from_accumulator(Byte value);
+		void and_with_accumulator(Byte value);
+		void or_with_accumulator(Byte value);
+		void xor_with_accumulator(Byte value);
+		void compare_with_accumulator(Byte value);
+		Byte increment(Byte value);
+		Word increment(Word value);
+		Byte decrement(Byte value);
+		Word decrement(Word value);
+		void add(Word value);
+		void push_register_onto_stack(Word reg);
+		void pop_value_from_stack(Word& reg);
 		void load_8_bit_value(Word& reg, Byte value);
+		Byte left_shift(Byte value, bool through_carry = false);
+		Byte right_shift(Byte value, bool through_carry = false);
+		void cb_handler();
 		static constexpr Byte
+			CB_INS = 0xCB,
 			// ###### 8 bit loads ######
 			// immediate
 			INS_LD_Bn = 0x06,
@@ -195,7 +216,156 @@ namespace GZ80
 			INS_LD_SPnn = 0x31,
 			// stack load and store operations
 			INS_LD_SPHL = 0xF9,
-			INS_LDHL_SPn = 0xF8;
+			INS_LDHL_SPn = 0xF8,
+			INS_LD_nnSP = 0x08,
+			INS_PUSH_AF = 0xF5,
+			INS_PUSH_BC = 0xC5,
+			INS_PUSH_DE = 0xD5,
+			INS_PUSH_HL = 0xE5,
+			INS_POP_AF = 0xF1,
+			INS_POP_BC = 0xC1,
+			INS_POP_DE = 0xD1,
+			INS_POP_HL = 0xE1,
+			// ###### 8 bit ALU #######
+			// ADD
+			INS_ADD_AA = 0x87,
+			INS_ADD_AB = 0x80,
+			INS_ADD_AC = 0x81,
+			INS_ADD_AD = 0x82,
+			INS_ADD_AE = 0x83,
+			INS_ADD_AH = 0x84,
+			INS_ADD_AL = 0x85,
+			INS_ADD_AHL = 0x86,
+			INS_ADD_AIM = 0xC6,
+			// ADDC
+			INS_ADC_AA = 0x8F,
+			INS_ADC_AB = 0x88,
+			INS_ADC_AC = 0x89,
+			INS_ADC_AD = 0x8A,
+			INS_ADC_AE = 0x8B,
+			INS_ADC_AH = 0x8C,
+			INS_ADC_AL = 0x8D,
+			INS_ADC_AHL = 0x8E,
+			INS_ADC_AIM = 0xCE,
+			// SUB
+			INS_SUB_AA = 0x97,
+			INS_SUB_AB = 0x90,
+			INS_SUB_AC = 0x91,
+			INS_SUB_AD = 0x92,
+			INS_SUB_AE = 0x93,
+			INS_SUB_AH = 0x94,
+			INS_SUB_AL = 0x95,
+			INS_SUB_AHL = 0x96,
+			INS_SUB_AIM = 0xD6,
+			// SBC
+			INS_SBC_AA = 0x9F,
+			INS_SBC_AB = 0x98,
+			INS_SBC_AC = 0x99,
+			INS_SBC_AD = 0x9A,
+			INS_SBC_AE = 0x9B,
+			INS_SBC_AH = 0x9C,
+			INS_SBC_AL = 0x9D,
+			INS_SBC_AHL = 0x9E,
+			INS_SBC_AIM = 0xDE,
+			// AND
+			INS_AND_AA = 0xA7,
+			INS_AND_AB = 0xA0,
+			INS_AND_AC = 0xA1,
+			INS_AND_AD = 0xA2,
+			INS_AND_AE = 0xA3,
+			INS_AND_AH = 0xA4,
+			INS_AND_AL = 0xA5,
+			INS_AND_AHL = 0xA6,
+			INS_AND_AIM = 0xE6,
+			// OR
+			INS_OR_AA = 0xB7,
+			INS_OR_AB = 0xB0,
+			INS_OR_AC = 0xB1,
+			INS_OR_AD = 0xB2,
+			INS_OR_AE = 0xB3,
+			INS_OR_AH = 0xB4,
+			INS_OR_AL = 0xB5,
+			INS_OR_AHL = 0xB6,
+			INS_OR_AIM = 0xF6,
+			// XOR
+			INS_XOR_AA = 0xAF,
+			INS_XOR_AB = 0xA8,
+			INS_XOR_AC = 0xA9,
+			INS_XOR_AD = 0xAA,
+			INS_XOR_AE = 0xAB,
+			INS_XOR_AH = 0xAC,
+			INS_XOR_AL = 0xAD,
+			INS_XOR_AHL = 0xAE,
+			INS_XOR_AIM = 0xEE,
+			// CP
+			INS_CP_AA = 0xBF,
+			INS_CP_AB = 0xB8,
+			INS_CP_AC = 0xB9,
+			INS_CP_AD = 0xBA,
+			INS_CP_AE = 0xBB,
+			INS_CP_AH = 0xBC,
+			INS_CP_AL = 0xBD,
+			INS_CP_AHL = 0xBE,
+			INS_CP_AIM = 0xFE,
+			// INC
+			INS_INC_A = 0x3C,
+			INS_INC_B = 0x04,
+			INS_INC_C = 0x0C,
+			INS_INC_D = 0x14,
+			INS_INC_E = 0x1C,
+			INS_INC_H = 0x24,
+			INS_INC_L = 0x2C,
+			INS_INC_HL_ = 0x34,
+			// DEC
+			INS_DEC_A = 0x3D,
+			INS_DEC_B = 0x05,
+			INS_DEC_C = 0x0D,
+			INS_DEC_D = 0x15,
+			INS_DEC_E = 0x1D,
+			INS_DEC_H = 0x25,
+			INS_DEC_L = 0x2D,
+			INS_DEC_HL_ = 0x35,
+			// ###### 16 bit ALU #######
+			// ADD_HL
+			INS_ADD_HLBC = 0x09,
+			INS_ADD_HLDE = 0x19,
+			INS_ADD_HLHL = 0x29,
+			INS_ADD_HLSP = 0x39,
+			// ADD_SPIM
+			INS_ADD_SPIM = 0xE8,
+			// INC
+			INS_INC_BC = 0x03,
+			INS_INC_DE = 0x13,
+			INS_INC_HL = 0x23,
+			INS_INC_SP = 0x33,
+			// INC
+			INS_DEC_BC = 0x0B,
+			INS_DEC_DE = 0x1B,
+			INS_DEC_HL = 0x2B,
+			INS_DEC_SP = 0x3B,
+			// ###### Rotates and Shifts #########
+			INS_RLCA = 0x07,
+			INS_RLA = 0x17,
+			INS_RRCA = 0x0F,
+			INS_RRA = 0x1F,
+			INS_RLC_A = 0x07,
+			INS_RLC_B = 0x00,
+			INS_RLC_C = 0x01,
+			INS_RLC_D = 0x02,
+			INS_RLC_E = 0x03,
+			INS_RLC_H = 0x04,
+			INS_RLC_L = 0x05,
+			INS_RLC_HL_ = 0x06,
+			INS_RL_A = 0x17,
+			INS_RL_B = 0x10,
+			INS_RL_C = 0x11,
+			INS_RL_D = 0x12,
+			INS_RL_E = 0x13,
+			INS_RL_H = 0x14,
+			INS_RL_L = 0x15,
+			INS_RL_HL_ = 0x16;
+
+
 	public:
 		CPU();
 		Byte fetch_byte(bool increment_cycles = true);

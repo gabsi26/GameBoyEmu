@@ -45,7 +45,7 @@ namespace GZ80
 		Byte sprite_attribute_table[0x100];	// 0xFEFF - 0xFE9F
 		Byte unusable_area[0x60];			// 0xFEA0 - 0xFEFF
 		Byte io[0x80];						// 0xFF00 - 0xFF7F
-		Byte high_ram[0x80];				// 0xFF80 - 0xFFFE
+		Byte high_ram[0x7F];				// 0xFF80 - 0xFFFE
 		Byte interupt_enable_reg;			// 0xFFFF
 
 		Byte video_ram_select;

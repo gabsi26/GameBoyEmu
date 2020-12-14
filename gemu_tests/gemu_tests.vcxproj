@@ -36,7 +36,9 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="16_bit_alu_tests.cpp" />
     <ClCompile Include="16_bit_load_tests.cpp" />
+    <ClCompile Include="8_bit_alu_tests.cpp" />
     <ClCompile Include="8_bit_load_tests.cpp" />
     <ClCompile Include="initialisation_tests.cpp" />
     <ClCompile Include="pch.cpp">
@@ -45,6 +47,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="rotate_and_shift_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameBoyEmu\GameBoyEmu.vcxproj">

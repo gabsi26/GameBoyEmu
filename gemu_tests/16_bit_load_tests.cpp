@@ -154,3 +154,182 @@ TEST_F(_16BitLoadTests, LDHLSPnCanPutSPPlusnIntoHLWhileSettingCarryAndHalfCarryF
 	EXPECT_EQ(cpu.regs->carry, 1);
 }
 
+TEST_F(_16BitLoadTests, LDnnSPCanPutValueOfSPIntoAddressnn)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_LD_nnSP);
+	cpu.mem->write_to_address(0x101, 0x00);
+	cpu.mem->write_to_address(0x102, 0x02);
+	cpu.mem->write_to_address(0x200, 0x00);
+	cpu.regs->sp = 0xFFEE;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 5;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xFF);
+	EXPECT_EQ(cpu.mem->read_from_address(0x201), 0xEE);
+	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_16BitLoadTests, PUSHAFCanPushValueInAFOntoStack)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_PUSH_AF);
+	cpu.regs->A = 0x11;
+	cpu.regs->F = 0x22;
+	cpu.regs->sp = 0xFFFE;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 4;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.mem->read_from_address(0xFFFE), 0x22);
+	EXPECT_EQ(cpu.mem->read_from_address(0xFFFD), 0x11);
+	EXPECT_EQ(cpu.regs->sp, 0xFFFC);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_16BitLoadTests, PUSHBCCanPushValueInBCOntoStack)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_PUSH_BC);
+	cpu.regs->B = 0x11;
+	cpu.regs->C = 0x22;
+	cpu.regs->sp = 0xFFFE;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 4;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.mem->read_from_address(0xFFFE), 0x22);
+	EXPECT_EQ(cpu.mem->read_from_address(0xFFFD), 0x11);
+	EXPECT_EQ(cpu.regs->sp, 0xFFFC);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_16BitLoadTests, PUSHDECanPushValueInDEOntoStack)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_PUSH_DE);
+	cpu.regs->D = 0x11;
+	cpu.regs->E = 0x22;
+	cpu.regs->sp = 0xFFFE;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 4;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.mem->read_from_address(0xFFFE), 0x22);
+	EXPECT_EQ(cpu.mem->read_from_address(0xFFFD), 0x11);
+	EXPECT_EQ(cpu.regs->sp, 0xFFFC);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_16BitLoadTests, PUSHHLCanPushValueInHLOntoStack)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_PUSH_HL);
+	cpu.regs->H = 0x11;
+	cpu.regs->L = 0x22;
+	cpu.regs->sp = 0xFFFE;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 4;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.mem->read_from_address(0xFFFE), 0x22);
+	EXPECT_EQ(cpu.mem->read_from_address(0xFFFD), 0x11);
+	EXPECT_EQ(cpu.regs->sp, 0xFFFC);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_16BitLoadTests, POPAFCanPopValueFromStackIntoAF)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_POP_AF);
+	cpu.mem->write_to_address(0xFFFE, 0x22);
+	cpu.mem->write_to_address(0xFFFD, 0x11);
+	cpu.regs->sp = 0xFFFC;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 3;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.regs->A, 0x11);
+	EXPECT_EQ(cpu.regs->F, 0x22);
+	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_16BitLoadTests, POPBCCanPopValueFromStackIntoBC)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_POP_BC);
+	cpu.mem->write_to_address(0xFFFE, 0x22);
+	cpu.mem->write_to_address(0xFFFD, 0x11);
+	cpu.regs->sp = 0xFFFC;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 3;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.regs->B, 0x11);
+	EXPECT_EQ(cpu.regs->C, 0x22);
+	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_16BitLoadTests, POPDECanPopValueFromStackIntoDE)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_POP_DE);
+	cpu.mem->write_to_address(0xFFFE, 0x22);
+	cpu.mem->write_to_address(0xFFFD, 0x11);
+	cpu.regs->sp = 0xFFFC;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 3;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.regs->D, 0x11);
+	EXPECT_EQ(cpu.regs->E, 0x22);
+	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}
+
+TEST_F(_16BitLoadTests, POPHLCanPopValueFromStackIntoHL)
+{
+	// given
+	cpu.mem->write_to_address(0x100, CPU::INS_POP_HL);
+	cpu.mem->write_to_address(0xFFFE, 0x22);
+	cpu.mem->write_to_address(0xFFFD, 0x11);
+	cpu.regs->sp = 0xFFFC;
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = 3;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_machine_cycles);
+	// then
+	EXPECT_EQ(cpu.regs->H, 0x11);
+	EXPECT_EQ(cpu.regs->L, 0x22);
+	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
+	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+}

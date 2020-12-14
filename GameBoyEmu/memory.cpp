@@ -26,7 +26,7 @@ GZ80::Memory::Memory()
 	memset(sprite_attribute_table, 0, 0x100);
 	memset(unusable_area, 0, 0x60);
 	memset(io, 0, 0x80);
-	memset(high_ram, 0, 0x80);
+	memset(high_ram, 0, 0x7F);
 	interupt_enable_reg = 0;
 }
 
