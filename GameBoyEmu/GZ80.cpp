@@ -1296,7 +1296,107 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 			{
 				regs->A = rotate_right(regs->A, true);
 			} break;
-
+			// ############# Jumps ############
+			// Jump Immediate
+			case INS_JPIM:
+			{
+				Word address = fetch_word();
+				regs->pc = address;
+				cycles->increment_cycles(1);
+			} break;
+			// Jump not Zero
+			case INS_JPNZ:
+			{
+				Word address = fetch_word();
+				if (!regs->zero)
+				{
+					regs->pc = address;
+				}
+				cycles->increment_cycles(1);
+			} break;
+			// Jump Zero
+			case INS_JPZ:
+			{
+				Word address = fetch_word();
+				if (regs->zero)
+				{
+					regs->pc = address;
+				}
+				cycles->increment_cycles(1);
+			} break;
+			// Jump not Carry
+			case INS_JPNC:
+			{
+				Word address = fetch_word();
+				if (!regs->carry)
+				{
+					regs->pc = address;
+				}
+				cycles->increment_cycles(1);
+			} break;
+			// Jump Carry
+			case INS_JPC:
+			{
+				Word address = fetch_word();
+				if (regs->carry)
+				{
+					regs->pc = address;
+				}
+				cycles->increment_cycles(1);
+			} break;
+			// Jump to HL
+			case INS_JPHL:
+			{
+				regs->pc = regs->HL;
+				cycles->increment_cycles(1);
+			} break;
+			// Jump relative
+			case INS_JR:
+			{
+				SByte offset = fetch_byte();
+				regs->pc += offset - 1;
+				cycles->increment_cycles(1);
+			} break;
+			// Jump relative not Zero
+			case INS_JRNZ:
+			{
+				SByte offset = fetch_byte();
+				if (!regs->zero)
+				{
+					regs->pc += offset - 1;
+				}
+				cycles->increment_cycles(1);
+			} break;
+			// Jump relative Zero
+			case INS_JRZ:
+			{
+				SByte offset = fetch_byte();
+				if (regs->zero)
+				{
+					regs->pc += offset - 1;
+				}
+				cycles->increment_cycles(1);
+			} break;
+			// Jump relative not Carry
+			case INS_JRNC:
+			{
+				SByte offset = fetch_byte();
+				if (!regs->carry)
+				{
+					regs->pc += offset - 1;
+				}
+				cycles->increment_cycles(1);
+			} break;
+			// Jump relative carry
+			case INS_JRC:
+			{
+				SByte offset = fetch_byte();
+				if (regs->carry)
+				{
+					regs->pc += offset - 1;
+				}
+				cycles->increment_cycles(1);
+			} break;
 
 
 			case CB_INS:

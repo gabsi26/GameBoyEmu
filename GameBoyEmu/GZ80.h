@@ -634,7 +634,28 @@ namespace GZ80
 			INS_SET_7_HL_ = 0xFE,
 			// ############### JUMPS ############
 			// Jump Immediate
-			INS_JPIM = 0xC3;
+			INS_JPIM = 0xC3,
+			// Conditional Jumps
+			// Jump Non Zero
+			INS_JPNZ = 0xC2,
+			// Jump Zero
+			INS_JPZ = 0xCA,
+			// Jump Non Carry
+			INS_JPNC = 0xD2,
+			// Jump Carry
+			INS_JPC = 0xDA,
+			// Jump to HL
+			INS_JPHL = 0xE9,
+			// Jump relative
+			INS_JR = 0x18,
+			// Jump relative Non Zero
+			INS_JRNZ = 0x20,
+			// Jump relative Zero
+			INS_JRZ = 0x28,
+			// Jump relative Non Carry
+			INS_JRNC = 0x30,
+			// Jump relative Carry
+			INS_JRC = 0x38;
 
 	public:
 		CPU();
