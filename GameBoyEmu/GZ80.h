@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 #include "memory.h"
-#include "io_register_addresses.h"
+#include "special_register_addresses.h"
 
 namespace GZ80
 {

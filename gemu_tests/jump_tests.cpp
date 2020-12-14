@@ -13,469 +13,223 @@ public:
 	virtual void TearDown()
 	{
 	}
+
+	void jump_tests(Byte instruction, bool relative, bool hl, bool use_zero, bool use_carry, bool zero, bool carry, bool zero_wanted, bool carry_wanted, Byte expected_cycles, bool backwards = false);
 };
+
+void JumpTests::jump_tests(Byte instruction, bool relative, bool hl, bool use_zero, bool use_carry, bool zero, bool carry, bool zero_wanted, bool carry_wanted, Byte expected_cycles, bool backwards)
+{
+	// given
+	cpu.mem->write_to_address(0x100, instruction);
+	if (!relative && !hl)
+	{
+		cpu.mem->write_to_address(0x101, 0x00);
+		cpu.mem->write_to_address(0x102, 0x02);
+	}
+	else if (hl)
+	{
+		cpu.regs->HL = 0x200;
+		
+	}
+	else if (!backwards)
+	{
+		cpu.mem->write_to_address(0x101, 0x20);
+	}
+	else
+	{
+		cpu.mem->write_to_address(0x101, 0xA0);
+	}
+	if (use_zero)
+	{
+		cpu.regs->zero = zero;
+	}
+	else if (use_carry)
+	{
+		cpu.regs->carry = carry;
+	}
+	cpu.regs->pc = 0x100;
+	Byte expected_machine_cycles = expected_cycles;
+	// when
+	Byte opcode = cpu.fetch_byte(false);
+	cpu.execute(opcode, expected_cycles);
+	// then
+	if (((use_carry && cpu.regs->carry == carry_wanted) || (use_zero && cpu.regs->zero == zero_wanted) || (!use_carry && !use_zero)))
+	{
+		if (relative)
+		{
+			if (!backwards)
+			{
+				EXPECT_EQ(cpu.regs->pc, 0x121 + 1);
+			}
+			else
+			{
+				EXPECT_EQ(cpu.regs->pc, 0x0A1 + 1);
+			}
+		}
+		else
+		{
+			EXPECT_EQ(cpu.regs->pc, 0x200 + 1);
+		}
+	}
+	else if (relative && (use_carry || use_zero))
+	{
+		EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
+	}
+	else
+	{
+		EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
+	}
+	EXPECT_EQ(cpu.cycles->mc, expected_cycles);
+}
 
 // ################## Jumps #####################
 // Jump Immediate
 TEST_F(JumpTests, JumpImmediateJumpsToSpecifiedPosition)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPIM);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	Byte expected_machine_cycles = 4;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x200 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPIM, 0, 0, 0, 0, 0, 0, 0, 0, 4);
 }
 
 // Jump not Zero
 TEST_F(JumpTests, JumpNotZeroJumpsToSpecifiedPositionIfZeroFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPNZ);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 4;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x200 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPNZ, 0, 0, 1, 0, 0, 0, 0, 0, 4);
 }
 
 TEST_F(JumpTests, JumpNotZeroDoesntJumpToSpecifiedPositionIfZeroFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPNZ);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPNZ, 0, 0, 1, 0, 1, 0, 0, 0, 3);
 }
 
 // Jump Zero
 TEST_F(JumpTests, JumpZeroJumpsToSpecifiedPositionIfZeroFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPZ);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 4;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x200 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPZ, 0, 0, 1, 0, 1, 0, 1, 0, 4);
 }
 
 TEST_F(JumpTests, JumpZeroDoesntJumpToSpecifiedPositionIfZeroFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPZ);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPZ, 0, 0, 1, 0, 0, 0, 1, 0, 3);
 }
 
 // Jump not Carry
 TEST_F(JumpTests, JumpNotCarryJumpsToSpecifiedPositionIfCarryFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPNC);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 4;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x200 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPNC, 0, 0, 0, 1, 0, 0, 0, 0, 4);
 }
 
 TEST_F(JumpTests, JumpNotCarryDoesntJumpToSpecifiedPositionIfCarryFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPNC);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPNC, 0, 0, 0, 1, 0, 1, 0, 0, 3);
 }
 
 // Jump Carry
 TEST_F(JumpTests, JumpCarryJumpsToSpecifiedPositionIfCarryFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPC);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 4;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x200 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPC, 0, 0, 0, 1, 0, 1, 0, 1, 4);
 }
 
 TEST_F(JumpTests, JumpCarryDoesntJumpToSpecifiedPositionIfCarryFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPC);
-	cpu.mem->write_to_address(0x101, 0x00);
-	cpu.mem->write_to_address(0x102, 0x02);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPC, 0, 0, 0, 1, 0, 0, 0, 1, 3);
 }
 
 // Jump to HL
 TEST_F(JumpTests, JumpToHLJumpsToHL)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JPHL);
-	cpu.regs->HL = 0x200;
-	cpu.regs->pc = 0x100;
-	Byte expected_machine_cycles = 1;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x200 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JPHL, 0, 1, 0, 0, 0, 0, 0, 0, 1);
 }
 
 // Jump relative
 TEST_F(JumpTests, JumpRelativeJumpsForwards)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JR);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x121 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JR, 1, 0, 0, 0, 0, 0, 0, 0, 3);
 }
 
 TEST_F(JumpTests, JumpRelativeJumpsBackwards)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JR);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x0A1 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JR, 1, 0, 0, 0, 0, 0, 0, 0, 3, 1);
 }
 
 // Jump relative Not Zero
 TEST_F(JumpTests, JumpRelativeNotZeroJumpsForwardsIfZeroFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRNZ);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x121 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRNZ, 1, 0, 1, 0, 0, 0, 0, 0, 3);
 }
 
 TEST_F(JumpTests, JumpRelativeNotZeroDoesntJumpForwardsIfZeroFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRNZ);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 2;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRNZ, 1, 0, 1, 0, 1, 0, 0, 0, 2);
 }
 
 TEST_F(JumpTests, JumpRelativeNotZeroJumpsBackwardsIfZeroFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRNZ);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x0A1 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRNZ, 1, 0, 1, 0, 0, 0, 0, 0, 3, 1);
 }
 
 TEST_F(JumpTests, JumpRelativeNotZeroDoesntJumpBackwardsIfZeroFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRNZ);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 2;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRNZ, 1, 0, 1, 0, 1, 0, 0, 0, 2, 1);
 }
 
 // Jump relative Zero
 TEST_F(JumpTests, JumpRelativeZeroJumpsForwardsIfZeroFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRZ);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x121 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRZ, 1, 0, 1, 0, 1, 0, 1, 0, 3);
 }
 
 TEST_F(JumpTests, JumpRelativeZeroDoesntJumpForwardsIfZeroFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRZ);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 2;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRZ, 1, 0, 1, 0, 0, 0, 1, 0, 2);
 }
 
 TEST_F(JumpTests, JumpRelativeZeroJumpsBackwardsIfZeroFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRZ);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 1;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x0A1 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRZ, 1, 0, 1, 0, 1, 0, 1, 0, 3, 1);
 }
 
 TEST_F(JumpTests, JumpRelativeZeroDoesntJumpBackwardsIfZeroFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRZ);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	cpu.regs->zero = 0;
-	Byte expected_machine_cycles = 2;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRZ, 1, 0, 1, 0, 0, 0, 1, 0, 2, 1);
 }
 
 // Jump relative Not Carry
 TEST_F(JumpTests, JumpRelativeNotCarryJumpsForwardsIfCarryFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRNC);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x121 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRNC, 1, 0, 0, 1, 0, 0, 0, 0, 3);
 }
 
 TEST_F(JumpTests, JumpRelativeNotCarryDoesntJumpForwardsIfCarryFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRNC);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 2;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRNC, 1, 0, 0, 1, 0, 1, 0, 0, 2);
 }
 
 TEST_F(JumpTests, JumpRelativeNotCarryJumpsBackwardsIfCarryFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRNC);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x0A1 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRNC, 1, 0, 0, 1, 0, 0, 0, 0, 3, 1);
 }
 
 TEST_F(JumpTests, JumpRelativeNotCarryDoesntJumpBackwardsIfCarryFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRNC);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 2;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRNC, 1, 0, 0, 1, 0, 1, 0, 0, 2, 1);
 }
 
 // Jump relative Carry
 TEST_F(JumpTests, JumpRelativeCarryJumpsForwardsIfCarryFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRC);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x121 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRC, 1, 0, 0, 1, 0, 1, 0, 1, 3);
 }
 
 TEST_F(JumpTests, JumpRelativeCarryDoesntJumpForwardsIfCarryFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRC);
-	cpu.mem->write_to_address(0x101, 0x20);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 2;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRC, 1, 0, 0, 1, 0, 0, 0, 1, 2);
 }
 
 TEST_F(JumpTests, JumpRelativeCarryJumpsBackwardsIfCarryFlagIsSet)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRC);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 1;
-	Byte expected_machine_cycles = 3;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x0A1 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRC, 1, 0, 0, 1, 0, 1, 0, 1, 3, 1);
 }
 
 TEST_F(JumpTests, JumpRelativeCarryDoesntJumpBackwardsIfCarryFlagIsReset)
 {
-	// given
-	cpu.mem->write_to_address(0x100, CPU::INS_JRC);
-	cpu.mem->write_to_address(0x101, 0xA0);
-	cpu.regs->pc = 0x100;
-	cpu.regs->carry = 0;
-	Byte expected_machine_cycles = 2;
-	// when
-	Byte opcode = cpu.fetch_byte(false);
-	cpu.execute(opcode, expected_machine_cycles);
-	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
-	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
+	jump_tests(CPU::INS_JRC, 1, 0, 0, 1, 0, 0, 0, 1, 2, 1);
 }
