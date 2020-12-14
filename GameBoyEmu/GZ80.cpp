@@ -268,6 +268,27 @@ GZ80::Byte GZ80::CPU::shift_right(Byte value, bool logical)
 	return result;
 }
 
+void GZ80::CPU::test_bit(Byte value, Byte bit)
+{
+	Byte mask = 0b1 << bit;
+	regs->zero = ((value & mask) >> bit) == 0;
+	regs->negative = 0;
+	regs->half_carry = 1;
+	cycles->increment_cycles(1);
+}
+
+GZ80::Byte GZ80::CPU::set_bit_mask(Byte bit)
+{
+	cycles->increment_cycles(1);
+	return (1 << bit);
+}
+
+GZ80::Byte GZ80::CPU::reset_bit_mask(Byte bit)
+{
+	cycles->increment_cycles(1);
+	return ~(1 << bit);
+}
+
 void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 {
 	while (cycles->mc < machine_cycles)
@@ -1533,6 +1554,857 @@ void GZ80::CPU::cb_handler()
 		{
 			mem->write_to_address(regs->HL, shift_right(mem->read_from_address(regs->HL), true));
 			cycles->increment_cycles(2);
+		} break;
+		// ########## BIT #############
+		// BIT0
+		case INS_BIT_0A:
+		{
+			test_bit(regs->A, 0);
+		} break;
+		case INS_BIT_0B:
+		{
+			test_bit(regs->B, 0);
+		} break;
+		case INS_BIT_0C:
+		{
+			test_bit(regs->C, 0);
+		} break;
+		case INS_BIT_0D:
+		{
+			test_bit(regs->D, 0);
+		} break;
+		case INS_BIT_0E:
+		{
+			test_bit(regs->E, 0);
+		} break;
+		case INS_BIT_0H:
+		{
+			test_bit(regs->H, 0);
+		} break;
+		case INS_BIT_0L:
+		{
+			test_bit(regs->L, 0);
+		} break;
+		case INS_BIT_0_HL_:
+		{
+			test_bit(mem->read_from_address(regs->HL), 0);
+			cycles->increment_cycles(2);
+		} break;
+		// BIT1
+		case INS_BIT_1A:
+		{
+			test_bit(regs->A, 1);
+		} break;
+		case INS_BIT_1B:
+		{
+			test_bit(regs->B, 1);
+		} break;
+		case INS_BIT_1C:
+		{
+			test_bit(regs->C, 1);
+		} break;
+		case INS_BIT_1D:
+		{
+			test_bit(regs->D, 1);
+		} break;
+		case INS_BIT_1E:
+		{
+			test_bit(regs->E, 1);
+		} break;
+		case INS_BIT_1H:
+		{
+			test_bit(regs->H, 1);
+		} break;
+		case INS_BIT_1L:
+		{
+			test_bit(regs->L, 1);
+		} break;
+		case INS_BIT_1_HL_:
+		{
+			test_bit(mem->read_from_address(regs->HL), 1);
+			cycles->increment_cycles(2);
+		} break;
+		// BIT2
+		case INS_BIT_2A:
+		{
+			test_bit(regs->A, 2);
+		} break;
+		case INS_BIT_2B:
+		{
+			test_bit(regs->B, 2);
+		} break;
+		case INS_BIT_2C:
+		{
+			test_bit(regs->C, 2);
+		} break;
+		case INS_BIT_2D:
+		{
+			test_bit(regs->D, 2);
+		} break;
+		case INS_BIT_2E:
+		{
+			test_bit(regs->E, 2);
+		} break;
+		case INS_BIT_2H:
+		{
+			test_bit(regs->H, 2);
+		} break;
+		case INS_BIT_2L:
+		{
+			test_bit(regs->L, 2);
+		} break;
+		case INS_BIT_2_HL_:
+		{
+			test_bit(mem->read_from_address(regs->HL), 2);
+			cycles->increment_cycles(2);
+		} break;
+		// BIT3
+		case INS_BIT_3A:
+		{
+			test_bit(regs->A, 3);
+		} break;
+		case INS_BIT_3B:
+		{
+			test_bit(regs->B, 3);
+		} break;
+		case INS_BIT_3C:
+		{
+			test_bit(regs->C, 3);
+		} break;
+		case INS_BIT_3D:
+		{
+			test_bit(regs->D, 3);
+		} break;
+		case INS_BIT_3E:
+		{
+			test_bit(regs->E, 3);
+		} break;
+		case INS_BIT_3H:
+		{
+			test_bit(regs->H, 3);
+		} break;
+		case INS_BIT_3L:
+		{
+			test_bit(regs->L, 3);
+		} break;
+		case INS_BIT_3_HL_:
+		{
+			test_bit(mem->read_from_address(regs->HL), 3);
+			cycles->increment_cycles(2);
+		} break;
+		// BIT4
+		case INS_BIT_4A:
+		{
+			test_bit(regs->A, 4);
+		} break;
+		case INS_BIT_4B:
+		{
+			test_bit(regs->B, 4);
+		} break;
+		case INS_BIT_4C:
+		{
+			test_bit(regs->C, 4);
+		} break;
+		case INS_BIT_4D:
+		{
+			test_bit(regs->D, 4);
+		} break;
+		case INS_BIT_4E:
+		{
+			test_bit(regs->E, 4);
+		} break;
+		case INS_BIT_4H:
+		{
+			test_bit(regs->H, 4);
+		} break;
+		case INS_BIT_4L:
+		{
+			test_bit(regs->L, 4);
+		} break;
+		case INS_BIT_4_HL_:
+		{
+			test_bit(mem->read_from_address(regs->HL), 4);
+			cycles->increment_cycles(2);
+		} break;
+		// BIT5
+		case INS_BIT_5A:
+		{
+			test_bit(regs->A, 5);
+		} break;
+		case INS_BIT_5B:
+		{
+			test_bit(regs->B, 5);
+		} break;
+		case INS_BIT_5C:
+		{
+			test_bit(regs->C, 5);
+		} break;
+		case INS_BIT_5D:
+		{
+			test_bit(regs->D, 5);
+		} break;
+		case INS_BIT_5E:
+		{
+			test_bit(regs->E, 5);
+		} break;
+		case INS_BIT_5H:
+		{
+			test_bit(regs->H, 5);
+		} break;
+		case INS_BIT_5L:
+		{
+			test_bit(regs->L, 5);
+		} break;
+		case INS_BIT_5_HL_:
+		{
+			test_bit(mem->read_from_address(regs->HL), 5);
+			cycles->increment_cycles(2);
+		} break;
+		// BIT6
+		case INS_BIT_6A:
+		{
+			test_bit(regs->A, 6);
+		} break;
+		case INS_BIT_6B:
+		{
+			test_bit(regs->B, 6);
+		} break;
+		case INS_BIT_6C:
+		{
+			test_bit(regs->C, 6);
+		} break;
+		case INS_BIT_6D:
+		{
+			test_bit(regs->D, 6);
+		} break;
+		case INS_BIT_6E:
+		{
+			test_bit(regs->E, 6);
+		} break;
+		case INS_BIT_6H:
+		{
+			test_bit(regs->H, 6);
+		} break;
+		case INS_BIT_6L:
+		{
+			test_bit(regs->L, 6);
+		} break;
+		case INS_BIT_6_HL_:
+		{
+			test_bit(mem->read_from_address(regs->HL), 6);
+			cycles->increment_cycles(2);
+		} break;
+		// BIT7
+		case INS_BIT_7A:
+		{
+			test_bit(regs->A, 7);
+		} break;
+		case INS_BIT_7B:
+		{
+			test_bit(regs->B, 7);
+		} break;
+		case INS_BIT_7C:
+		{
+			test_bit(regs->C, 7);
+		} break;
+		case INS_BIT_7D:
+		{
+			test_bit(regs->D, 7);
+		} break;
+		case INS_BIT_7E:
+		{
+			test_bit(regs->E, 7);
+		} break;
+		case INS_BIT_7H:
+		{
+			test_bit(regs->H, 7);
+		} break;
+		case INS_BIT_7L:
+		{
+			test_bit(regs->L, 7);
+		} break;
+		case INS_BIT_7_HL_:
+		{
+			test_bit(mem->read_from_address(regs->HL), 7);
+			cycles->increment_cycles(2);
+		} break;
+		// ################# RES ##############
+		// RES0
+		case INS_RES_0A:
+		{
+			regs->A &= reset_bit_mask(0);
+		} break;
+		case INS_RES_0B:
+		{
+			regs->B &= reset_bit_mask(0);
+		} break;
+		case INS_RES_0C:
+		{
+			regs->C &= reset_bit_mask(0);
+		} break;
+		case INS_RES_0D:
+		{
+			regs->D &= reset_bit_mask(0);
+		} break;
+		case INS_RES_0E:
+		{
+			regs->E &= reset_bit_mask(0);
+		} break;
+		case INS_RES_0H:
+		{
+			regs->H &= reset_bit_mask(0);
+		} break;
+		case INS_RES_0L:
+		{
+			regs->L &= reset_bit_mask(0);
+		} break;
+		case INS_RES_0_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value &= reset_bit_mask(0);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// RES1
+		case INS_RES_1A:
+		{
+			regs->A &= reset_bit_mask(1);
+		} break;
+		case INS_RES_1B:
+		{
+			regs->B &= reset_bit_mask(1);
+		} break;
+		case INS_RES_1C:
+		{
+			regs->C &= reset_bit_mask(1);
+		} break;
+		case INS_RES_1D:
+		{
+			regs->D &= reset_bit_mask(1);
+		} break;
+		case INS_RES_1E:
+		{
+			regs->E &= reset_bit_mask(1);
+		} break;
+		case INS_RES_1H:
+		{
+			regs->H &= reset_bit_mask(1);
+		} break;
+		case INS_RES_1L:
+		{
+			regs->L &= reset_bit_mask(1);
+		} break;
+		case INS_RES_1_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value &= reset_bit_mask(1);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// RES2
+		case INS_RES_2A:
+		{
+			regs->A &= reset_bit_mask(2);
+		} break;
+		case INS_RES_2B:
+		{
+			regs->B &= reset_bit_mask(2);
+		} break;
+		case INS_RES_2C:
+		{
+			regs->C &= reset_bit_mask(2);
+		} break;
+		case INS_RES_2D:
+		{
+			regs->D &= reset_bit_mask(2);
+		} break;
+		case INS_RES_2E:
+		{
+			regs->E &= reset_bit_mask(2);
+		} break;
+		case INS_RES_2H:
+		{
+			regs->H &= reset_bit_mask(2);
+		} break;
+		case INS_RES_2L:
+		{
+			regs->L &= reset_bit_mask(2);
+		} break;
+		case INS_RES_2_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value &= reset_bit_mask(2);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// RES3
+		case INS_RES_3A:
+		{
+			regs->A &= reset_bit_mask(3);
+		} break;
+		case INS_RES_3B:
+		{
+			regs->B &= reset_bit_mask(3);
+		} break;
+		case INS_RES_3C:
+		{
+			regs->C &= reset_bit_mask(3);
+		} break;
+		case INS_RES_3D:
+		{
+			regs->D &= reset_bit_mask(3);
+		} break;
+		case INS_RES_3E:
+		{
+			regs->E &= reset_bit_mask(3);
+		} break;
+		case INS_RES_3H:
+		{
+			regs->H &= reset_bit_mask(3);
+		} break;
+		case INS_RES_3L:
+		{
+			regs->L &= reset_bit_mask(3);
+		} break;
+		case INS_RES_3_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value &= reset_bit_mask(3);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// RES4
+		case INS_RES_4A:
+		{
+			regs->A &= reset_bit_mask(4);
+		} break;
+		case INS_RES_4B:
+		{
+			regs->B &= reset_bit_mask(4);
+		} break;
+		case INS_RES_4C:
+		{
+			regs->C &= reset_bit_mask(4);
+		} break;
+		case INS_RES_4D:
+		{
+			regs->D &= reset_bit_mask(4);
+		} break;
+		case INS_RES_4E:
+		{
+			regs->E &= reset_bit_mask(4);
+		} break;
+		case INS_RES_4H:
+		{
+			regs->H &= reset_bit_mask(4);
+		} break;
+		case INS_RES_4L:
+		{
+			regs->L &= reset_bit_mask(4);
+		} break;
+		case INS_RES_4_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value &= reset_bit_mask(4);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// RES5
+		case INS_RES_5A:
+		{
+			regs->A &= reset_bit_mask(5);
+		} break;
+		case INS_RES_5B:
+		{
+			regs->B &= reset_bit_mask(5);
+		} break;
+		case INS_RES_5C:
+		{
+			regs->C &= reset_bit_mask(5);
+		} break;
+		case INS_RES_5D:
+		{
+			regs->D &= reset_bit_mask(5);
+		} break;
+		case INS_RES_5E:
+		{
+			regs->E &= reset_bit_mask(5);
+		} break;
+		case INS_RES_5H:
+		{
+			regs->H &= reset_bit_mask(5);
+		} break;
+		case INS_RES_5L:
+		{
+			regs->L &= reset_bit_mask(5);
+		} break;
+		case INS_RES_5_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value &= reset_bit_mask(5);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// RES6
+		case INS_RES_6A:
+		{
+			regs->A &= reset_bit_mask(6);
+		} break;
+		case INS_RES_6B:
+		{
+			regs->B &= reset_bit_mask(6);
+		} break;
+		case INS_RES_6C:
+		{
+			regs->C &= reset_bit_mask(6);
+		} break;
+		case INS_RES_6D:
+		{
+			regs->D &= reset_bit_mask(6);
+		} break;
+		case INS_RES_6E:
+		{
+			regs->E &= reset_bit_mask(6);
+		} break;
+		case INS_RES_6H:
+		{
+			regs->H &= reset_bit_mask(6);
+		} break;
+		case INS_RES_6L:
+		{
+			regs->L &= reset_bit_mask(6);
+		} break;
+		case INS_RES_6_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value &= reset_bit_mask(6);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// RES7
+		case INS_RES_7A:
+		{
+			regs->A &= reset_bit_mask(7);
+		} break;
+		case INS_RES_7B:
+		{
+			regs->B &= reset_bit_mask(7);
+		} break;
+		case INS_RES_7C:
+		{
+			regs->C &= reset_bit_mask(7);
+		} break;
+		case INS_RES_7D:
+		{
+			regs->D &= reset_bit_mask(7);
+		} break;
+		case INS_RES_7E:
+		{
+			regs->E &= reset_bit_mask(7);
+		} break;
+		case INS_RES_7H:
+		{
+			regs->H &= reset_bit_mask(7);
+		} break;
+		case INS_RES_7L:
+		{
+			regs->L &= reset_bit_mask(7);
+		} break;
+		case INS_RES_7_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value &= reset_bit_mask(7);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// ############## SET ##############
+		// SET0
+		case INS_SET_0A:
+		{
+			regs->A |= set_bit_mask(0);
+		} break;
+		case INS_SET_0B:
+		{
+			regs->B |= set_bit_mask(0);
+		} break;
+		case INS_SET_0C:
+		{
+			regs->C |= set_bit_mask(0);
+		} break;
+		case INS_SET_0D:
+		{
+			regs->D |= set_bit_mask(0);
+		} break;
+		case INS_SET_0E:
+		{
+			regs->E |= set_bit_mask(0);
+		} break;
+		case INS_SET_0H:
+		{
+			regs->H |= set_bit_mask(0);
+		} break;
+		case INS_SET_0L:
+		{
+			regs->L |= set_bit_mask(0);
+		} break;
+		case INS_SET_0_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value |= set_bit_mask(0);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// SET1
+		case INS_SET_1A:
+		{
+			regs->A |= set_bit_mask(1);
+		} break;
+		case INS_SET_1B:
+		{
+			regs->B |= set_bit_mask(1);
+		} break;
+		case INS_SET_1C:
+		{
+			regs->C |= set_bit_mask(1);
+		} break;
+		case INS_SET_1D:
+		{
+			regs->D |= set_bit_mask(1);
+		} break;
+		case INS_SET_1E:
+		{
+			regs->E |= set_bit_mask(1);
+		} break;
+		case INS_SET_1H:
+		{
+			regs->H |= set_bit_mask(1);
+		} break;
+		case INS_SET_1L:
+		{
+			regs->L |= set_bit_mask(1);
+		} break;
+		case INS_SET_1_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value |= set_bit_mask(1);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// SET2
+		case INS_SET_2A:
+		{
+			regs->A |= set_bit_mask(2);
+		} break;
+		case INS_SET_2B:
+		{
+			regs->B |= set_bit_mask(2);
+		} break;
+		case INS_SET_2C:
+		{
+			regs->C |= set_bit_mask(2);
+		} break;
+		case INS_SET_2D:
+		{
+			regs->D |= set_bit_mask(2);
+		} break;
+		case INS_SET_2E:
+		{
+			regs->E |= set_bit_mask(2);
+		} break;
+		case INS_SET_2H:
+		{
+			regs->H |= set_bit_mask(2);
+		} break;
+		case INS_SET_2L:
+		{
+			regs->L |= set_bit_mask(2);
+		} break;
+		case INS_SET_2_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value |= set_bit_mask(2);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// SET3
+		case INS_SET_3A:
+		{
+			regs->A |= set_bit_mask(3);
+		} break;
+		case INS_SET_3B:
+		{
+			regs->B |= set_bit_mask(3);
+		} break;
+		case INS_SET_3C:
+		{
+			regs->C |= set_bit_mask(3);
+		} break;
+		case INS_SET_3D:
+		{
+			regs->D |= set_bit_mask(3);
+		} break;
+		case INS_SET_3E:
+		{
+			regs->E |= set_bit_mask(3);
+		} break;
+		case INS_SET_3H:
+		{
+			regs->H |= set_bit_mask(3);
+		} break;
+		case INS_SET_3L:
+		{
+			regs->L |= set_bit_mask(3);
+		} break;
+		case INS_SET_3_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value |= set_bit_mask(3);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// SET4
+		case INS_SET_4A:
+		{
+			regs->A |= set_bit_mask(4);
+		} break;
+		case INS_SET_4B:
+		{
+			regs->B |= set_bit_mask(4);
+		} break;
+		case INS_SET_4C:
+		{
+			regs->C |= set_bit_mask(4);
+		} break;
+		case INS_SET_4D:
+		{
+			regs->D |= set_bit_mask(4);
+		} break;
+		case INS_SET_4E:
+		{
+			regs->E |= set_bit_mask(4);
+		} break;
+		case INS_SET_4H:
+		{
+			regs->H |= set_bit_mask(4);
+		} break;
+		case INS_SET_4L:
+		{
+			regs->L |= set_bit_mask(4);
+		} break;
+		case INS_SET_4_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value |= set_bit_mask(4);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// SET5
+		case INS_SET_5A:
+		{
+			regs->A |= set_bit_mask(5);
+		} break;
+		case INS_SET_5B:
+		{
+			regs->B |= set_bit_mask(5);
+		} break;
+		case INS_SET_5C:
+		{
+			regs->C |= set_bit_mask(5);
+		} break;
+		case INS_SET_5D:
+		{
+			regs->D |= set_bit_mask(5);
+		} break;
+		case INS_SET_5E:
+		{
+			regs->E |= set_bit_mask(5);
+		} break;
+		case INS_SET_5H:
+		{
+			regs->H |= set_bit_mask(5);
+		} break;
+		case INS_SET_5L:
+		{
+			regs->L |= set_bit_mask(5);
+		} break;
+		case INS_SET_5_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value |= set_bit_mask(5);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// SET6
+		case INS_SET_6A:
+		{
+			regs->A |= set_bit_mask(6);
+		} break;
+		case INS_SET_6B:
+		{
+			regs->B |= set_bit_mask(6);
+		} break;
+		case INS_SET_6C:
+		{
+			regs->C |= set_bit_mask(6);
+		} break;
+		case INS_SET_6D:
+		{
+			regs->D |= set_bit_mask(6);
+		} break;
+		case INS_SET_6E:
+		{
+			regs->E |= set_bit_mask(6);
+		} break;
+		case INS_SET_6H:
+		{
+			regs->H |= set_bit_mask(6);
+		} break;
+		case INS_SET_6L:
+		{
+			regs->L |= set_bit_mask(6);
+		} break;
+		case INS_SET_6_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value |= set_bit_mask(6);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
+		} break;
+		// SET7
+		case INS_SET_7A:
+		{
+			regs->A |= set_bit_mask(7);
+		} break;
+		case INS_SET_7B:
+		{
+			regs->B |= set_bit_mask(7);
+		} break;
+		case INS_SET_7C:
+		{
+			regs->C |= set_bit_mask(7);
+		} break;
+		case INS_SET_7D:
+		{
+			regs->D |= set_bit_mask(7);
+		} break;
+		case INS_SET_7E:
+		{
+			regs->E |= set_bit_mask(7);
+		} break;
+		case INS_SET_7H:
+		{
+			regs->H |= set_bit_mask(7);
+		} break;
+		case INS_SET_7L:
+		{
+			regs->L |= set_bit_mask(7);
+		} break;
+		case INS_SET_7_HL_:
+		{
+			Byte value = mem->read_from_address(regs->HL);
+			value |= set_bit_mask(7);
+			cycles->increment_cycles(2);
+			mem->write_to_address(regs->HL, value);
 		} break;
 		default:
 			return;
