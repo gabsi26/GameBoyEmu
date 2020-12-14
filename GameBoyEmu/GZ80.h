@@ -631,7 +631,10 @@ namespace GZ80
 			INS_SET_7E = 0xFB,
 			INS_SET_7H = 0xFC,
 			INS_SET_7L = 0xFD,
-			INS_SET_7_HL_ = 0xFE;
+			INS_SET_7_HL_ = 0xFE,
+			// ############### JUMPS ############
+			// Jump Immediate
+			INS_JPIM = 0xC3;
 
 	public:
 		CPU();

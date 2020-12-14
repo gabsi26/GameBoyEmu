@@ -30,7 +30,7 @@ TEST_F(_16BitLoadTests, LDBCnnCanLoadAValueIntoRegisterBC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->BC, 0xFFEE);
-	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -48,7 +48,7 @@ TEST_F(_16BitLoadTests, LDDEnnCanLoadAValueIntoRegisterDE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->DE, 0xFFEE);
-	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -66,7 +66,7 @@ TEST_F(_16BitLoadTests, LDHLnnCanLoadAValueIntoRegisterHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0xFFEE);
-	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -84,7 +84,7 @@ TEST_F(_16BitLoadTests, LDSPnnCanLoadAValueIntoSP)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->sp, 0xFFEE);
-	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -102,7 +102,7 @@ TEST_F(_16BitLoadTests, LDSPHLCanPutHLIntoSP)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->sp, 0xFFEE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -122,7 +122,7 @@ TEST_F(_16BitLoadTests, LDHLSPnCanPutSPPlusnIntoHLWithoutSettingAnyFlag)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0xFFFA);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 	EXPECT_EQ(cpu.regs->zero, 0);
 	EXPECT_EQ(cpu.regs->negative, 0);
@@ -146,7 +146,7 @@ TEST_F(_16BitLoadTests, LDHLSPnCanPutSPPlusnIntoHLWhileSettingCarryAndHalfCarryF
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0xFFFE);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 	EXPECT_EQ(cpu.regs->zero, 0);
 	EXPECT_EQ(cpu.regs->negative, 0);
@@ -170,7 +170,7 @@ TEST_F(_16BitLoadTests, LDnnSPCanPutValueOfSPIntoAddressnn)
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xFF);
 	EXPECT_EQ(cpu.mem->read_from_address(0x201), 0xEE);
-	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -190,7 +190,7 @@ TEST_F(_16BitLoadTests, PUSHAFCanPushValueInAFOntoStack)
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFFE), 0x22);
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFFD), 0x11);
 	EXPECT_EQ(cpu.regs->sp, 0xFFFC);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -210,7 +210,7 @@ TEST_F(_16BitLoadTests, PUSHBCCanPushValueInBCOntoStack)
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFFE), 0x22);
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFFD), 0x11);
 	EXPECT_EQ(cpu.regs->sp, 0xFFFC);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -230,7 +230,7 @@ TEST_F(_16BitLoadTests, PUSHDECanPushValueInDEOntoStack)
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFFE), 0x22);
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFFD), 0x11);
 	EXPECT_EQ(cpu.regs->sp, 0xFFFC);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -250,7 +250,7 @@ TEST_F(_16BitLoadTests, PUSHHLCanPushValueInHLOntoStack)
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFFE), 0x22);
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFFD), 0x11);
 	EXPECT_EQ(cpu.regs->sp, 0xFFFC);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -270,7 +270,7 @@ TEST_F(_16BitLoadTests, POPAFCanPopValueFromStackIntoAF)
 	EXPECT_EQ(cpu.regs->A, 0x11);
 	EXPECT_EQ(cpu.regs->F, 0x22);
 	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -290,7 +290,7 @@ TEST_F(_16BitLoadTests, POPBCCanPopValueFromStackIntoBC)
 	EXPECT_EQ(cpu.regs->B, 0x11);
 	EXPECT_EQ(cpu.regs->C, 0x22);
 	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -310,7 +310,7 @@ TEST_F(_16BitLoadTests, POPDECanPopValueFromStackIntoDE)
 	EXPECT_EQ(cpu.regs->D, 0x11);
 	EXPECT_EQ(cpu.regs->E, 0x22);
 	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -330,6 +330,6 @@ TEST_F(_16BitLoadTests, POPHLCanPopValueFromStackIntoHL)
 	EXPECT_EQ(cpu.regs->H, 0x11);
 	EXPECT_EQ(cpu.regs->L, 0x22);
 	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }

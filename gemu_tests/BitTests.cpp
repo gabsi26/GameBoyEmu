@@ -32,7 +32,7 @@ TEST_F(BitTests, BIT0ACanTestBit0OfRegisterANonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -56,7 +56,7 @@ TEST_F(BitTests, BIT0ACanTestBit0OfRegisterAZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -81,7 +81,7 @@ TEST_F(BitTests, BIT0_HL_CanTestBit0OfAddress_HL_NonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -106,7 +106,7 @@ TEST_F(BitTests, BIT0_HL_CanTestBit0OfAddress_HL_Zero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -131,7 +131,7 @@ TEST_F(BitTests, BIT1ACanTestBit1OfRegisterANonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -155,7 +155,7 @@ TEST_F(BitTests, BIT1ACanTestBit1OfRegisterAZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -180,7 +180,7 @@ TEST_F(BitTests, BIT1_HL_CanTestBit1OfAddress_HL_NonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -205,7 +205,7 @@ TEST_F(BitTests, BIT1_HL_CanTestBit1OfAddress_HL_Zero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -230,7 +230,7 @@ TEST_F(BitTests, BIT2ACanTestBit2OfRegisterANonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -254,7 +254,7 @@ TEST_F(BitTests, BIT2ACanTestBit2OfRegisterAZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -279,7 +279,7 @@ TEST_F(BitTests, BIT2_HL_CanTestBit2OfAddress_HL_NonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -304,7 +304,7 @@ TEST_F(BitTests, BIT2_HL_CanTestBit2OfAddress_HL_Zero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -329,7 +329,7 @@ TEST_F(BitTests, BIT3ACanTestBit3OfRegisterANonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -353,7 +353,7 @@ TEST_F(BitTests, BIT3ACanTestBit3OfRegisterAZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -378,7 +378,7 @@ TEST_F(BitTests, BIT3_HL_CanTestBit3OfAddress_HL_NonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -403,7 +403,7 @@ TEST_F(BitTests, BIT3_HL_CanTestBit3OfAddress_HL_Zero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -428,7 +428,7 @@ TEST_F(BitTests, BIT4ACanTestBit4OfRegisterANonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -452,7 +452,7 @@ TEST_F(BitTests, BIT4ACanTestBit4OfRegisterAZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -477,7 +477,7 @@ TEST_F(BitTests, BIT4_HL_CanTestBit4OfAddress_HL_NonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -502,7 +502,7 @@ TEST_F(BitTests, BIT4_HL_CanTestBit4OfAddress_HL_Zero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -527,7 +527,7 @@ TEST_F(BitTests, BIT5ACanTestBit5OfRegisterANonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -551,7 +551,7 @@ TEST_F(BitTests, BIT5ACanTestBit5OfRegisterAZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -576,7 +576,7 @@ TEST_F(BitTests, BIT5_HL_CanTestBit5OfAddress_HL_NonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -601,7 +601,7 @@ TEST_F(BitTests, BIT5_HL_CanTestBit5OfAddress_HL_Zero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -626,7 +626,7 @@ TEST_F(BitTests, BIT6ACanTestBit6OfRegisterANonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -650,7 +650,7 @@ TEST_F(BitTests, BIT6ACanTestBit6OfRegisterAZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -675,7 +675,7 @@ TEST_F(BitTests, BIT6_HL_CanTestBit6OfAddress_HL_NonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -700,7 +700,7 @@ TEST_F(BitTests, BIT6_HL_CanTestBit6OfAddress_HL_Zero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -725,7 +725,7 @@ TEST_F(BitTests, BIT7ACanTestBit7OfRegisterANonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -749,7 +749,7 @@ TEST_F(BitTests, BIT7ACanTestBit7OfRegisterAZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -774,7 +774,7 @@ TEST_F(BitTests, BIT7_HL_CanTestBit7OfAddress_HL_NonZero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -799,7 +799,7 @@ TEST_F(BitTests, BIT7_HL_CanTestBit7OfAddress_HL_Zero)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -821,7 +821,7 @@ TEST_F(BitTests, RES0ACanResetBit0OfRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -838,7 +838,7 @@ TEST_F(BitTests, RES0ACanResetBit0OfRegisterANonZeroDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -855,7 +855,7 @@ TEST_F(BitTests, RES0ACanResetBit0OfRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -873,7 +873,7 @@ TEST_F(BitTests, RES0_HL_CanResetBit0OfAddress_HL_NonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -891,7 +891,7 @@ TEST_F(BitTests, RES0_HL_CanResetBit0OfAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -909,7 +909,7 @@ TEST_F(BitTests, RES1ACanResetBit1OfRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -926,7 +926,7 @@ TEST_F(BitTests, RES1ACanResetBit1OfRegisterANonZeroDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -943,7 +943,7 @@ TEST_F(BitTests, RES1ACanResetBit1OfRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -961,7 +961,7 @@ TEST_F(BitTests, RES1_HL_CanResetBit1OfAddress_HL_NonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -979,7 +979,7 @@ TEST_F(BitTests, RES1_HL_CanResetBit1OfAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -997,7 +997,7 @@ TEST_F(BitTests, RES2ACanResetBit2OfRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1014,7 +1014,7 @@ TEST_F(BitTests, RES2ACanResetBit2OfRegisterANonZeroDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1031,7 +1031,7 @@ TEST_F(BitTests, RES2ACanResetBit2OfRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1049,7 +1049,7 @@ TEST_F(BitTests, RES2_HL_CanResetBit2OfAddress_HL_NonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1067,7 +1067,7 @@ TEST_F(BitTests, RES2_HL_CanResetBit2OfAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1085,7 +1085,7 @@ TEST_F(BitTests, RES3ACanResetBit3OfRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1102,7 +1102,7 @@ TEST_F(BitTests, RES3ACanResetBit3OfRegisterANonZeroDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1119,7 +1119,7 @@ TEST_F(BitTests, RES3ACanResetBit3OfRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1137,7 +1137,7 @@ TEST_F(BitTests, RES3_HL_CanResetBit3OfAddress_HL_NonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1155,7 +1155,7 @@ TEST_F(BitTests, RES3_HL_CanResetBit3OfAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1173,7 +1173,7 @@ TEST_F(BitTests, RES4ACanResetBit4OfRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1190,7 +1190,7 @@ TEST_F(BitTests, RES4ACanResetBit4OfRegisterANonZeroDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x08);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1207,7 +1207,7 @@ TEST_F(BitTests, RES4ACanResetBit4OfRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1225,7 +1225,7 @@ TEST_F(BitTests, RES4_HL_CanResetBit4OfAddress_HL_NonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1243,7 +1243,7 @@ TEST_F(BitTests, RES4_HL_CanResetBit4OfAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1261,7 +1261,7 @@ TEST_F(BitTests, RES5ACanResetBit5OfRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1278,7 +1278,7 @@ TEST_F(BitTests, RES5ACanResetBit5OfRegisterANonZeroDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x08);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1295,7 +1295,7 @@ TEST_F(BitTests, RES5ACanResetBit5OfRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1313,7 +1313,7 @@ TEST_F(BitTests, RES5_HL_CanResetBit5OfAddress_HL_NonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1331,7 +1331,7 @@ TEST_F(BitTests, RES5_HL_CanResetBit5OfAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1349,7 +1349,7 @@ TEST_F(BitTests, RES6ACanResetBit6OfRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1366,7 +1366,7 @@ TEST_F(BitTests, RES6ACanResetBit6OfRegisterANonZeroDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x08);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1383,7 +1383,7 @@ TEST_F(BitTests, RES6ACanResetBit6OfRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1401,7 +1401,7 @@ TEST_F(BitTests, RES6_HL_CanResetBit6OfAddress_HL_NonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1419,7 +1419,7 @@ TEST_F(BitTests, RES6_HL_CanResetBit6OfAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1437,7 +1437,7 @@ TEST_F(BitTests, RES7ACanResetBit7OfRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1454,7 +1454,7 @@ TEST_F(BitTests, RES7ACanResetBit7OfRegisterANonZeroDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x08);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1471,7 +1471,7 @@ TEST_F(BitTests, RES7ACanResetBit7OfRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1489,7 +1489,7 @@ TEST_F(BitTests, RES7_HL_CanResetBit7OfAddress_HL_NonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1507,7 +1507,7 @@ TEST_F(BitTests, RES7_HL_CanResetBit7OfAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 // ################# SET0 #################
@@ -1524,7 +1524,7 @@ TEST_F(BitTests, SET0ACanSetBit0OfRegisterANotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1541,7 +1541,7 @@ TEST_F(BitTests, SET0ACanSetBit0OfRegisterANotSetDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x81);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1558,7 +1558,7 @@ TEST_F(BitTests, SET0ACanSetBit0OfRegisterASet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1576,7 +1576,7 @@ TEST_F(BitTests, SET0_HL_CanSetBit0OfAddress_HL_NotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1594,7 +1594,7 @@ TEST_F(BitTests, SET0_HL_CanSetBit0OfAddress_HL_Set)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 // ################# SET1 #################
@@ -1611,7 +1611,7 @@ TEST_F(BitTests, SET1ACanSetBit1OfRegisterANotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1628,7 +1628,7 @@ TEST_F(BitTests, SET1ACanSetBit1OfRegisterANotSetDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x82);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1645,7 +1645,7 @@ TEST_F(BitTests, SET1ACanSetBit1OfRegisterASet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1663,7 +1663,7 @@ TEST_F(BitTests, SET1_HL_CanSetBit1OfAddress_HL_NotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1681,7 +1681,7 @@ TEST_F(BitTests, SET1_HL_CanSetBit1OfAddress_HL_Set)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 // ################# SET2 #################
@@ -1698,7 +1698,7 @@ TEST_F(BitTests, SET2ACanSetBit2OfRegisterANotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x04);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1715,7 +1715,7 @@ TEST_F(BitTests, SET2ACanSetBit2OfRegisterANotSetDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x84);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1732,7 +1732,7 @@ TEST_F(BitTests, SET2ACanSetBit2OfRegisterASet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x04);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1750,7 +1750,7 @@ TEST_F(BitTests, SET2_HL_CanSetBit2OfAddress_HL_NotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x04);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1768,7 +1768,7 @@ TEST_F(BitTests, SET2_HL_CanSetBit2OfAddress_HL_Set)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x04);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 // ################# SET3 #################
@@ -1785,7 +1785,7 @@ TEST_F(BitTests, SET3ACanSetBit3OfRegisterANotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x08);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1802,7 +1802,7 @@ TEST_F(BitTests, SET3ACanSetBit3OfRegisterANotSetDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x88);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1819,7 +1819,7 @@ TEST_F(BitTests, SET3ACanSetBit3OfRegisterASet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x08);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1837,7 +1837,7 @@ TEST_F(BitTests, SET3_HL_CanSetBit3OfAddress_HL_NotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x08);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1855,7 +1855,7 @@ TEST_F(BitTests, SET3_HL_CanSetBit3OfAddress_HL_Set)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x08);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 // ################# SET4 #################
@@ -1872,7 +1872,7 @@ TEST_F(BitTests, SET4ACanSetBit4OfRegisterANotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1889,7 +1889,7 @@ TEST_F(BitTests, SET4ACanSetBit4OfRegisterANotSetDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x18);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1906,7 +1906,7 @@ TEST_F(BitTests, SET4ACanSetBit4OfRegisterASet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1924,7 +1924,7 @@ TEST_F(BitTests, SET4_HL_CanSetBit4OfAddress_HL_NotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1942,7 +1942,7 @@ TEST_F(BitTests, SET4_HL_CanSetBit4OfAddress_HL_Set)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 // ################# SET5 #################
@@ -1959,7 +1959,7 @@ TEST_F(BitTests, SET5ACanSetBit5OfRegisterANotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x20);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1976,7 +1976,7 @@ TEST_F(BitTests, SET5ACanSetBit5OfRegisterANotSetDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x28);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1993,7 +1993,7 @@ TEST_F(BitTests, SET5ACanSetBit5OfRegisterASet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x20);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2011,7 +2011,7 @@ TEST_F(BitTests, SET5_HL_CanSetBit5OfAddress_HL_NotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x20);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2029,7 +2029,7 @@ TEST_F(BitTests, SET5_HL_CanSetBit5OfAddress_HL_Set)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x20);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 // ################# SET6 #################
@@ -2046,7 +2046,7 @@ TEST_F(BitTests, SET6ACanSetBit6OfRegisterANotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x40);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2063,7 +2063,7 @@ TEST_F(BitTests, SET6ACanSetBit6OfRegisterANotSetDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x48);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2080,7 +2080,7 @@ TEST_F(BitTests, SET6ACanSetBit6OfRegisterASet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x40);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2098,7 +2098,7 @@ TEST_F(BitTests, SET6_HL_CanSetBit6OfAddress_HL_NotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x40);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2116,7 +2116,7 @@ TEST_F(BitTests, SET6_HL_CanSetBit6OfAddress_HL_Set)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x40);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2134,7 +2134,7 @@ TEST_F(BitTests, SET7ACanSetBit7OfRegisterANotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2151,7 +2151,7 @@ TEST_F(BitTests, SET7ACanSetBit7OfRegisterANotSetDoesntEffectOtherBits)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x88);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2168,7 +2168,7 @@ TEST_F(BitTests, SET7ACanSetBit7OfRegisterASet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2186,7 +2186,7 @@ TEST_F(BitTests, SET7_HL_CanSetBit7OfAddress_HL_NotSet)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -2204,6 +2204,6 @@ TEST_F(BitTests, SET7_HL_CanSetBit7OfAddress_HL_Set)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }

@@ -29,7 +29,7 @@ TEST_F(_8BitLoadTests, LDBnCanLoadAValueIntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0x42);
-	EXPECT_EQ(cpu.regs->pc, 0x102); 
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1); 
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -46,7 +46,7 @@ TEST_F(_8BitLoadTests, LDCnCanLoadAValueIntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0x42);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -63,7 +63,7 @@ TEST_F(_8BitLoadTests, LDDnCanLoadAValueIntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0x42);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -80,7 +80,7 @@ TEST_F(_8BitLoadTests, LDEnCanLoadAValueIntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0x42);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -97,7 +97,7 @@ TEST_F(_8BitLoadTests, LDHnCanLoadAValueIntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0x42);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -114,7 +114,7 @@ TEST_F(_8BitLoadTests, LDLnCanLoadAValueIntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0x42);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -132,7 +132,7 @@ TEST_F(_8BitLoadTests, LDHLnCanLoadAValueImmediateIntoAddressHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -149,7 +149,7 @@ TEST_F(_8BitLoadTests, LDAnCanLoadAValueIntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x42);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -165,7 +165,7 @@ TEST_F(_8BitLoadTests, LDAACanLoadAValueFromRegisterAIntoRegisterA)
 	Byte opcode = cpu.fetch_byte(false);
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -182,7 +182,7 @@ TEST_F(_8BitLoadTests, LDABCanLoadAValueFromRegisterBIntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -199,7 +199,7 @@ TEST_F(_8BitLoadTests, LDACCanLoadAValueFromRegisterCIntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -216,7 +216,7 @@ TEST_F(_8BitLoadTests, LDADCanLoadAValueFromRegisterDIntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -233,7 +233,7 @@ TEST_F(_8BitLoadTests, LDAECanLoadAValueFromRegisterEIntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -250,7 +250,7 @@ TEST_F(_8BitLoadTests, LDAHCanLoadAValueFromRegisterHIntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -267,7 +267,7 @@ TEST_F(_8BitLoadTests, LDALCanLoadAValueFromRegisterLIntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -285,7 +285,7 @@ TEST_F(_8BitLoadTests, LDAHLCanLoadAValueFromAddress_HL_IntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -303,7 +303,7 @@ TEST_F(_8BitLoadTests, LDABCCanLoadAValueFromAddress_BC_IntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -321,7 +321,7 @@ TEST_F(_8BitLoadTests, LDADECanLoadAValueFromAddress_DE_IntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -340,7 +340,7 @@ TEST_F(_8BitLoadTests, LDAnnCanLoadAValueFromAddress_nn_IntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -358,7 +358,7 @@ TEST_F(_8BitLoadTests, LDA_C_CanLoadAValueFromAddress_0xFF00_C_IntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -376,7 +376,7 @@ TEST_F(_8BitLoadTests, LDBACanLoadAValueFromRegisterAIntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -393,7 +393,7 @@ TEST_F(_8BitLoadTests, LDCACanLoadAValueFromRegisterAIntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -410,7 +410,7 @@ TEST_F(_8BitLoadTests, LDDACanLoadAValueFromRegisterAIntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -427,7 +427,7 @@ TEST_F(_8BitLoadTests, LDEACanLoadAValueFromRegisterAIntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -444,7 +444,7 @@ TEST_F(_8BitLoadTests, LDHACanLoadAValueFromRegisterAIntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -461,7 +461,7 @@ TEST_F(_8BitLoadTests, LDLACanLoadAValueFromRegisterAIntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -479,7 +479,7 @@ TEST_F(_8BitLoadTests, LDBCACanLoadAValueFromRegisterAIntoAddress_BC_)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x0200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -497,7 +497,7 @@ TEST_F(_8BitLoadTests, LDDEACanLoadAValueFromRegisterAIntoAddress_DE_)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x0200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -515,7 +515,7 @@ TEST_F(_8BitLoadTests, LDHLACanLoadAValueFromRegisterAIntoAddress_HL_)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x0200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -534,7 +534,7 @@ TEST_F(_8BitLoadTests, LDnnACanLoadAValueFromRegisterAIntoAddress_nn_)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x103);
+	EXPECT_EQ(cpu.regs->pc, 0x103 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -552,7 +552,7 @@ TEST_F(_8BitLoadTests, LD_C_ACanLoadAValueFromRegisterAIntoAddress_0xFF00_C)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFA0), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -569,7 +569,7 @@ TEST_F(_8BitLoadTests, LDBBCanLoadAValueFromRegisterBIntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -586,7 +586,7 @@ TEST_F(_8BitLoadTests, LDBCCanLoadAValueFromRegisterCIntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -603,7 +603,7 @@ TEST_F(_8BitLoadTests, LDBDCanLoadAValueFromRegisterDIntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -620,7 +620,7 @@ TEST_F(_8BitLoadTests, LDBECanLoadAValueFromRegisterEIntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -637,7 +637,7 @@ TEST_F(_8BitLoadTests, LDBHCanLoadAValueFromRegisterHIntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -654,7 +654,7 @@ TEST_F(_8BitLoadTests, LDBLCanLoadAValueFromRegisterLIntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -672,7 +672,7 @@ TEST_F(_8BitLoadTests, LDBHLCanLoadAValueFromAddress_HL_IntoRegisterB)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->B, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -690,7 +690,7 @@ TEST_F(_8BitLoadTests, LDCBCanLoadAValueFromRegisterBIntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -706,7 +706,7 @@ TEST_F(_8BitLoadTests, LDCCCanLoadAValueFromRegisterCIntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -723,7 +723,7 @@ TEST_F(_8BitLoadTests, LDCDCanLoadAValueFromRegisterDIntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -740,7 +740,7 @@ TEST_F(_8BitLoadTests, LDCECanLoadAValueFromRegisterEIntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -757,7 +757,7 @@ TEST_F(_8BitLoadTests, LDCHCanLoadAValueFromRegisterHIntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -774,7 +774,7 @@ TEST_F(_8BitLoadTests, LDCLCanLoadAValueFromRegisterLIntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -792,7 +792,7 @@ TEST_F(_8BitLoadTests, LDCHLCanLoadAValueFromAddress_HL_IntoRegisterC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->C, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -810,7 +810,7 @@ TEST_F(_8BitLoadTests, LDDBCanLoadAValueFromRegisterBIntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -827,7 +827,7 @@ TEST_F(_8BitLoadTests, LDDCCanLoadAValueFromRegisterCIntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -843,7 +843,7 @@ TEST_F(_8BitLoadTests, LDDDCanLoadAValueFromRegisterDIntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -860,7 +860,7 @@ TEST_F(_8BitLoadTests, LDDECanLoadAValueFromRegisterEIntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -877,7 +877,7 @@ TEST_F(_8BitLoadTests, LDDHCanLoadAValueFromRegisterHIntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -894,7 +894,7 @@ TEST_F(_8BitLoadTests, LDDLCanLoadAValueFromRegisterLIntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -912,7 +912,7 @@ TEST_F(_8BitLoadTests, LDDHLCanLoadAValueFromAddress_HL_IntoRegisterD)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->D, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -930,7 +930,7 @@ TEST_F(_8BitLoadTests, LDEBCanLoadAValueFromRegisterBIntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -947,7 +947,7 @@ TEST_F(_8BitLoadTests, LDECCanLoadAValueFromRegisterCIntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -964,7 +964,7 @@ TEST_F(_8BitLoadTests, LDEDCanLoadAValueFromRegisterDIntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -980,7 +980,7 @@ TEST_F(_8BitLoadTests, LDEECanLoadAValueFromRegisterEIntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -997,7 +997,7 @@ TEST_F(_8BitLoadTests, LDEHCanLoadAValueFromRegisterHIntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1014,7 +1014,7 @@ TEST_F(_8BitLoadTests, LDELCanLoadAValueFromRegisterLIntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1032,7 +1032,7 @@ TEST_F(_8BitLoadTests, LDEHLCanLoadAValueFromAddress_HL_IntoRegisterE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->E, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1050,7 +1050,7 @@ TEST_F(_8BitLoadTests, LDHBCanLoadAValueFromRegisterBIntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1067,7 +1067,7 @@ TEST_F(_8BitLoadTests, LDHCCanLoadAValueFromRegisterCIntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1084,7 +1084,7 @@ TEST_F(_8BitLoadTests, LDHDCanLoadAValueFromRegisterDIntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1101,7 +1101,7 @@ TEST_F(_8BitLoadTests, LDHECanLoadAValueFromRegisterEIntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1117,7 +1117,7 @@ TEST_F(_8BitLoadTests, LDHHCanLoadAValueFromRegisterHIntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1134,7 +1134,7 @@ TEST_F(_8BitLoadTests, LDHLCanLoadAValueFromRegisterLIntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1152,7 +1152,7 @@ TEST_F(_8BitLoadTests, LDHHLCanLoadAValueFromAddress_HL_IntoRegisterH)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->H, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1170,7 +1170,7 @@ TEST_F(_8BitLoadTests, LDLBCanLoadAValueFromRegisterBIntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1187,7 +1187,7 @@ TEST_F(_8BitLoadTests, LDLCCanLoadAValueFromRegisterCIntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1204,7 +1204,7 @@ TEST_F(_8BitLoadTests, LDLDCanLoadAValueFromRegisterDIntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1221,7 +1221,7 @@ TEST_F(_8BitLoadTests, LDLECanLoadAValueFromRegisterEIntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1238,7 +1238,7 @@ TEST_F(_8BitLoadTests, LDLHCanLoadAValueFromRegisterHIntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1254,7 +1254,7 @@ TEST_F(_8BitLoadTests, LDLLCanLoadAValueFromRegisterLIntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1272,7 +1272,7 @@ TEST_F(_8BitLoadTests, LDLHLCanLoadAValueFromAddress_HL_IntoRegisterL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->L, 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1291,7 +1291,7 @@ TEST_F(_8BitLoadTests, LDHLBCanLoadAValueFromRegisterBIntoAddressHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1309,7 +1309,7 @@ TEST_F(_8BitLoadTests, LDHLCCanLoadAValueFromRegisterCIntoAddressHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1327,7 +1327,7 @@ TEST_F(_8BitLoadTests, LDHLDCanLoadAValueFromRegisterDIntoAddressHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1345,7 +1345,7 @@ TEST_F(_8BitLoadTests, LDHLECanLoadAValueFromRegisterEIntoAddressHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xAA);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1362,7 +1362,7 @@ TEST_F(_8BitLoadTests, LDHLHCanLoadAValueFromRegisterHIntoAddressHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1379,7 +1379,7 @@ TEST_F(_8BitLoadTests, LDHLLCanLoadAValueFromRegisterLIntoAddressHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x202), 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1399,7 +1399,7 @@ TEST_F(_8BitLoadTests, LDD_A_HL_CanLoadAValueFromAddress_HL_IntoRegisterAAndDecr
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xEE);
 	EXPECT_EQ(cpu.regs->HL, 0x200);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1418,7 +1418,7 @@ TEST_F(_8BitLoadTests, LDD_HL_ACanLoadAValueFromRegisterAIntoAddress_HL_AndDecre
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x201), 0xEE);
 	EXPECT_EQ(cpu.regs->HL, 0x200);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1437,7 +1437,7 @@ TEST_F(_8BitLoadTests, LDI_A_HL_CanLoadAValueFromAddress_HL_IntoRegisterAAndIncr
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xEE);
 	EXPECT_EQ(cpu.regs->HL, 0x202);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1456,7 +1456,7 @@ TEST_F(_8BitLoadTests, LDI_HL_ACanLoadAValueFromRegisterAIntoAddress_HL_AndIncre
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x201), 0xEE);
 	EXPECT_EQ(cpu.regs->HL, 0x202);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1475,7 +1475,7 @@ TEST_F(_8BitLoadTests, LDH_nACanLoadAValueFromRegisterAIntoAddress_0xFF00_n)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0xFFA0), 0xEE);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -1493,6 +1493,6 @@ TEST_F(_8BitLoadTests, LDH_AnCanLoadAValueFromAddress_0xFF00_nIntoRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xEE);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }

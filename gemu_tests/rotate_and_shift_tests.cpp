@@ -32,7 +32,7 @@ TEST_F(RotateAndShiftTests, RLCACanLeftRotateAccumulatorAndShift1IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -56,7 +56,7 @@ TEST_F(RotateAndShiftTests, RLCACanLeftRotateAccumulatorAndShift0IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -81,7 +81,7 @@ TEST_F(RotateAndShiftTests, RLACanLeftRotateAccumulatorAndShift1IntoCarryAndGet1
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -105,7 +105,7 @@ TEST_F(RotateAndShiftTests, RLACanLeftRotateAccumulatorAndShift1IntoCarryAndGet0
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -129,7 +129,7 @@ TEST_F(RotateAndShiftTests, RLACanLeftRotateAccumulatorAndShift0IntoCarryAndGet1
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -154,7 +154,7 @@ TEST_F(RotateAndShiftTests, RRCACanRightRotateAccumulatorAndShift1IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -178,7 +178,7 @@ TEST_F(RotateAndShiftTests, RRCACanRightRotateAccumulatorAndShift0IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x20);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -203,7 +203,7 @@ TEST_F(RotateAndShiftTests, RRACanRightRotateAccumulatorAndShift1IntoCarryAndGet
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -227,7 +227,7 @@ TEST_F(RotateAndShiftTests, RRACanRightRotateAccumulatorAndShift1IntoCarryAndGet
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -251,7 +251,7 @@ TEST_F(RotateAndShiftTests, RRACanRightRotateAccumulatorAndShift0IntoCarryAndGet
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -277,7 +277,7 @@ TEST_F(RotateAndShiftTests, RLCCanLeftRotateAccumulatorAndShift1IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -303,7 +303,7 @@ TEST_F(RotateAndShiftTests, RLCCanLeftRotateValueAtAddress_HL_AndShift1IntoCarry
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -329,7 +329,7 @@ TEST_F(RotateAndShiftTests, RLCCanLeftRotateValueIAtAddress_HL_AndShift0IntoCarr
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -355,7 +355,7 @@ TEST_F(RotateAndShiftTests, RL_ACanLeftRotateAccumulatorAndShift1IntoCarryAndGet
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -380,7 +380,7 @@ TEST_F(RotateAndShiftTests, RLCanLeftRotateValueAtAddress_HL_AndShift1IntoCarryA
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -406,7 +406,7 @@ TEST_F(RotateAndShiftTests, RLCanLeftRotateValueAtAddress_HL_AndShift1IntoCarryA
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -432,7 +432,7 @@ TEST_F(RotateAndShiftTests, RLCanLeftRotateValueAtAddress_HL_AndShift0IntoCarryA
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -458,7 +458,7 @@ TEST_F(RotateAndShiftTests, RRCCanRightRotateAccumulatorAndShift1IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -484,7 +484,7 @@ TEST_F(RotateAndShiftTests, RRCCanRightRotateValueAtAddress_HL_AndShift1IntoCarr
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -510,7 +510,7 @@ TEST_F(RotateAndShiftTests, RRCCanRightRotateValueIAtAddress_HL_AndShift0IntoCar
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x20);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -536,7 +536,7 @@ TEST_F(RotateAndShiftTests, RR_ACanRightRotateAccumulatorAndShift1IntoCarryAndGe
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -561,7 +561,7 @@ TEST_F(RotateAndShiftTests, RRCanRightRotateValueAtAddress_HL_AndShift1IntoCarry
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -587,7 +587,7 @@ TEST_F(RotateAndShiftTests, RRCanRightRotateValueAtAddress_HL_AndShift1IntoCarry
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -613,7 +613,7 @@ TEST_F(RotateAndShiftTests, RRCanLeftRotateValueAtAddress_HL_AndShift0IntoCarryA
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -639,7 +639,7 @@ TEST_F(RotateAndShiftTests, SLACanLeftShiftAccumulatorAndShift1IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -665,7 +665,7 @@ TEST_F(RotateAndShiftTests, SLACanLeftShiftValueAtAddress_HL_AndShift1IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -691,7 +691,7 @@ TEST_F(RotateAndShiftTests, SLACanLeftShiftValueIAtAddress_HL_AndShift0IntoCarry
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x80);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -717,7 +717,7 @@ TEST_F(RotateAndShiftTests, SRACCanRightShiftAccumulatorAndShift1IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -742,7 +742,7 @@ TEST_F(RotateAndShiftTests, SRACCanRightShiftAccumulatorAndShift1IntoCarryAndKee
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xC0);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -768,7 +768,7 @@ TEST_F(RotateAndShiftTests, SRACCanRightShiftValueAtAddress_HL_AndShift1IntoCarr
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -794,7 +794,7 @@ TEST_F(RotateAndShiftTests, SRACanRightShiftValueIAtAddress_HL_AndShift0IntoCarr
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x20);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -820,7 +820,7 @@ TEST_F(RotateAndShiftTests, SRLCCanRightShiftAccumulatorAndShift1IntoCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -845,7 +845,7 @@ TEST_F(RotateAndShiftTests, SRLCCanRightShiftAccumulatorAndShift1IntoCarryAndPut
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x40);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -871,7 +871,7 @@ TEST_F(RotateAndShiftTests, SRLCCanRightShiftValueAtAddress_HL_AndShift1IntoCarr
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -897,7 +897,7 @@ TEST_F(RotateAndShiftTests, SRLCanRightShiftValueIAtAddress_HL_AndShift0IntoCarr
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x20);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);

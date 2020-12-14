@@ -1307,6 +1307,7 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				return;
 				break;
 		}
+		opcode = fetch_byte(false);
 	}
 	
 }
@@ -1316,7 +1317,7 @@ void GZ80::CPU::cb_handler()
 	Byte opcode = fetch_byte();
 	switch (opcode)
 	{
-		// ######### Rotations and shifts #############
+		// ######### Rotates and shifts #############
 		// RLC
 		case INS_RLC_A:
 		{

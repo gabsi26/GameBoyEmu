@@ -33,7 +33,7 @@ TEST_F(_16BitALUTests, ADDHLBCCanAddRegisterBCToRegisterHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0x0102);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -58,7 +58,7 @@ TEST_F(_16BitALUTests, ADDHLBCCanAddRegisterBCToRegisterHLWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0x1002);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -83,7 +83,7 @@ TEST_F(_16BitALUTests, ADDHLBCCanAddRegisterBCToRegisterHLWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0x0000);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -108,7 +108,7 @@ TEST_F(_16BitALUTests, ADDHLBCCanAddRegisterBCToRegisterHLWithCarryAndHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0x1000);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -132,7 +132,7 @@ TEST_F(_16BitALUTests, ADD_SPIMCanAddImmediateValueToSPWithoutSettingAnyFlag)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->sp, 0xFFFA);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 	EXPECT_EQ(cpu.regs->zero, 0);
 	EXPECT_EQ(cpu.regs->negative, 0);
@@ -155,7 +155,7 @@ TEST_F(_16BitALUTests, ADD_SPIMCanAddImmediateValueToSPWhileSettingCarryAndHalfC
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->sp, 0xFFFE);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 	EXPECT_EQ(cpu.regs->zero, 0);
 	EXPECT_EQ(cpu.regs->negative, 0);
@@ -176,7 +176,7 @@ TEST_F(_16BitALUTests, INC_BCCanIncreaseBC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->BC, 0x0001);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -192,7 +192,7 @@ TEST_F(_16BitALUTests, INC_BCCanIncreaseBCAndWrap)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->BC, 0x0000);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -208,7 +208,7 @@ TEST_F(_16BitALUTests, INC_DECanIncreaseDE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->DE, 0x0001);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -224,7 +224,7 @@ TEST_F(_16BitALUTests, INC_HLCanIncreaseHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0x0001);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -240,7 +240,7 @@ TEST_F(_16BitALUTests, INC_SPCanIncreaseSP)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->sp, 0x0001);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -257,7 +257,7 @@ TEST_F(_16BitALUTests, DEC_BCCanDecreaseBC)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->BC, 0x0001);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -273,7 +273,7 @@ TEST_F(_16BitALUTests, DEC_BCCanDecreaseBCAndWrap)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->BC, 0xFFFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -289,7 +289,7 @@ TEST_F(_16BitALUTests, DEC_DECanDecreaseDE)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->DE, 0x0001);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -305,7 +305,7 @@ TEST_F(_16BitALUTests, DEC_HLCanDecreaseHL)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->HL, 0x0001);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }
 
@@ -321,6 +321,6 @@ TEST_F(_16BitALUTests, DEC_SPCanDecreaseSP)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->sp, 0x0001);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_EQ(cpu.cycles->mc, expected_machine_cycles);
 }

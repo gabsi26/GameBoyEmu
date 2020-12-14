@@ -32,7 +32,7 @@ TEST_F(_8BitALUTests, ADDAACanAddRegisterAToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -56,7 +56,7 @@ TEST_F(_8BitALUTests, ADDAACanAddRegisterAToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -80,7 +80,7 @@ TEST_F(_8BitALUTests, ADDAACanAddRegisterAToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -104,7 +104,7 @@ TEST_F(_8BitALUTests, ADDAACanAddRegisterAToRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -129,7 +129,7 @@ TEST_F(_8BitALUTests, ADDABCanAddRegisterBToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -154,7 +154,7 @@ TEST_F(_8BitALUTests, ADDABCanAddRegisterBToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -179,7 +179,7 @@ TEST_F(_8BitALUTests, ADDABCanAddRegisterBToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -204,7 +204,7 @@ TEST_F(_8BitALUTests, ADDABCanAddRegisterBToRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -230,7 +230,7 @@ TEST_F(_8BitALUTests, ADDAHLCanAddAddress_HL_ToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -256,7 +256,7 @@ TEST_F(_8BitALUTests, ADDAHLCanAddAddress_HL_ToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -282,7 +282,7 @@ TEST_F(_8BitALUTests, ADDAHLCanAddAddress_HL_ToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -308,7 +308,7 @@ TEST_F(_8BitALUTests, ADDAHLCanAddAddress_HL_ToRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -333,7 +333,7 @@ TEST_F(_8BitALUTests, ADDAIMCanAddImmediateValueToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -358,7 +358,7 @@ TEST_F(_8BitALUTests, ADDAIMCanAddImmediateValueToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -383,7 +383,7 @@ TEST_F(_8BitALUTests, ADDAIMCanAddImmediatValueToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFE);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -408,7 +408,7 @@ TEST_F(_8BitALUTests, ADDAIMCanAddImmediateValueToRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -433,7 +433,7 @@ TEST_F(_8BitALUTests, ADCAACanAddRegisterAToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -457,7 +457,7 @@ TEST_F(_8BitALUTests, ADCAACanAddRegisterAPlusCarryToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x03);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -481,7 +481,7 @@ TEST_F(_8BitALUTests, ADCAACanAddRegisterAToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -505,7 +505,7 @@ TEST_F(_8BitALUTests, ADCAACanAddRegisterAToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -529,7 +529,7 @@ TEST_F(_8BitALUTests, ADCAACanAddRegisterAToRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -553,7 +553,7 @@ TEST_F(_8BitALUTests, ADCAACanAddRegisterAPlusToRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -578,7 +578,7 @@ TEST_F(_8BitALUTests, ADCABCanAddRegisterBToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -603,7 +603,7 @@ TEST_F(_8BitALUTests, ADCABCanAddRegisterBPlusCarryToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x03);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -628,7 +628,7 @@ TEST_F(_8BitALUTests, ADCABCanAddRegisterBToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -653,7 +653,7 @@ TEST_F(_8BitALUTests, ADCABCanAddRegisterBPlusCarryToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -678,7 +678,7 @@ TEST_F(_8BitALUTests, ADCABCanAddRegisterBToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -703,7 +703,7 @@ TEST_F(_8BitALUTests, ADCABCanAddRegisterBPlusCarryToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -728,7 +728,7 @@ TEST_F(_8BitALUTests, ADCABCanAddRegisterBToRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -753,7 +753,7 @@ TEST_F(_8BitALUTests, ADCABCanAddRegisterBPlusCarryToRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -779,7 +779,7 @@ TEST_F(_8BitALUTests, ADCAHLCanAddAddress_HL_ToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -805,7 +805,7 @@ TEST_F(_8BitALUTests, ADCAHLCanAddAddress_HL_ToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -831,7 +831,7 @@ TEST_F(_8BitALUTests, ADCAHLCanAddAddress_HL_ToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFE);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -857,7 +857,7 @@ TEST_F(_8BitALUTests, ADCAHLCanAddAddress_HL_ToRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -882,7 +882,7 @@ TEST_F(_8BitALUTests, ADCAIMCanAddImmediateValueToRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x02);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -907,7 +907,7 @@ TEST_F(_8BitALUTests, ADCAIMCanAddImmediateValueToRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -932,7 +932,7 @@ TEST_F(_8BitALUTests, ADCAIMCanAddImmediatValueToRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFE);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -957,7 +957,7 @@ TEST_F(_8BitALUTests, ADCAIMCanAddImmediateValueToRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -982,7 +982,7 @@ TEST_F(_8BitALUTests, SUBAACanSubtractRegisterAFromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1007,7 +1007,7 @@ TEST_F(_8BitALUTests, SUBABCanSubtractRegisterBFromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1032,7 +1032,7 @@ TEST_F(_8BitALUTests, SUBABCanSubtractRegisterBFromRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x3C);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1057,7 +1057,7 @@ TEST_F(_8BitALUTests, SUBABCanSubtractRegisterBFromRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1083,7 +1083,7 @@ TEST_F(_8BitALUTests, SUBAHLCanSubtractAddress_HL_FromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1109,7 +1109,7 @@ TEST_F(_8BitALUTests, SUBAHLCanSubtractAddress_HL_FromRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x3C);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1135,7 +1135,7 @@ TEST_F(_8BitALUTests, SUBAHLCanSubtractAddress_HL_FromRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1160,7 +1160,7 @@ TEST_F(_8BitALUTests, SUBAIMCanSubtractImmediateValueFromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1185,7 +1185,7 @@ TEST_F(_8BitALUTests, SUBAIMCanSubtractImmediateValueFromRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x3C);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1210,7 +1210,7 @@ TEST_F(_8BitALUTests, SUBAIMCanSubtractImmediateValueFromRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1235,7 +1235,7 @@ TEST_F(_8BitALUTests, SBCAACanSubtractRegisterAFromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1259,7 +1259,7 @@ TEST_F(_8BitALUTests, SBCAACanSubtractRegisterAPlusCarryFromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1284,7 +1284,7 @@ TEST_F(_8BitALUTests, SBCABCanSubtractRegisterBFromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1309,7 +1309,7 @@ TEST_F(_8BitALUTests, SBCABCanSubtractRegisterBPlusCarryFromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1334,7 +1334,7 @@ TEST_F(_8BitALUTests, SBCABCanSubtractRegisterBFromRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x3C);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1359,7 +1359,7 @@ TEST_F(_8BitALUTests, SBCABCanSubtractRegisterBPlusCarryFromRegisterAWithHalfCar
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x3F);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1384,7 +1384,7 @@ TEST_F(_8BitALUTests, SBCABCanSubtractRegisterBFromRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1410,7 +1410,7 @@ TEST_F(_8BitALUTests, SBCAHLCanSubtractAddress_HL_FromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1436,7 +1436,7 @@ TEST_F(_8BitALUTests, SBCAHLCanSubtractAddress_HL_FromRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x3C);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1462,7 +1462,7 @@ TEST_F(_8BitALUTests, SBCAHLCanSubtractAddress_HL_FromRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1487,7 +1487,7 @@ TEST_F(_8BitALUTests, SBCAIMCanSubtractImmediateValueFromRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1512,7 +1512,7 @@ TEST_F(_8BitALUTests, SBCAIMCanSubtractImmediateValueFromRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x3C);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1537,7 +1537,7 @@ TEST_F(_8BitALUTests, SBCAIMCanSubtractImmediateValueFromRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -1562,7 +1562,7 @@ TEST_F(_8BitALUTests, ANDAACanAndRegisterAWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1586,7 +1586,7 @@ TEST_F(_8BitALUTests, ANDAACanAndRegisterAWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1611,7 +1611,7 @@ TEST_F(_8BitALUTests, ANDABCanAndRegisterBWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1636,7 +1636,7 @@ TEST_F(_8BitALUTests, ANDABCanAndRegisterBWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1662,7 +1662,7 @@ TEST_F(_8BitALUTests, ANDAHLCanAndRegisterHLWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1688,7 +1688,7 @@ TEST_F(_8BitALUTests, ANDAHLCanAndRegisterHLWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1713,7 +1713,7 @@ TEST_F(_8BitALUTests, ANDAIMCanAndImmediateValueWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1738,7 +1738,7 @@ TEST_F(_8BitALUTests, ANDAIMCanAndImmediateValueWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1763,7 +1763,7 @@ TEST_F(_8BitALUTests, ORAACanOrRegisterAWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1787,7 +1787,7 @@ TEST_F(_8BitALUTests, ORAACanOrRegisterAWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1812,7 +1812,7 @@ TEST_F(_8BitALUTests, ORABCanOrRegisterBWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x11);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1838,7 +1838,7 @@ TEST_F(_8BitALUTests, ORAHLCanOrRegisterHLWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x11);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1863,7 +1863,7 @@ TEST_F(_8BitALUTests, ORAIMCanOrImmediateValueWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x11);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1888,7 +1888,7 @@ TEST_F(_8BitALUTests, XORAACanXOrRegisterAWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1913,7 +1913,7 @@ TEST_F(_8BitALUTests, XORABCanXOrRegisterBWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x11);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1938,7 +1938,7 @@ TEST_F(_8BitALUTests, XORABCanXOrRegisterBWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1964,7 +1964,7 @@ TEST_F(_8BitALUTests, XORAHLCanXOrRegisterHLWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x11);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -1990,7 +1990,7 @@ TEST_F(_8BitALUTests, XORAHLCanXOrRegisterHLWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2015,7 +2015,7 @@ TEST_F(_8BitALUTests, XORAIMCanXOrImmediateValueWithRegisterANonZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x11);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2040,7 +2040,7 @@ TEST_F(_8BitALUTests, XORAIMCanXOrImmediateValueWithRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2065,7 +2065,7 @@ TEST_F(_8BitALUTests, CPAACanCompareRegisterAWithRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2090,7 +2090,7 @@ TEST_F(_8BitALUTests, CPABCanCompareRegisterBWithRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2115,7 +2115,7 @@ TEST_F(_8BitALUTests, CPABCanCompareRegisterBWithRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x40);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2140,7 +2140,7 @@ TEST_F(_8BitALUTests, CPABCanCompareRegisterBWithRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2166,7 +2166,7 @@ TEST_F(_8BitALUTests, CPAHLCanCompareAddress_HL_WithRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2192,7 +2192,7 @@ TEST_F(_8BitALUTests, CPAHLCanCompareAddress_HL_WithRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x40);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2218,7 +2218,7 @@ TEST_F(_8BitALUTests, CPAHLCanCompareAddress_HL_WithRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2243,7 +2243,7 @@ TEST_F(_8BitALUTests, CPAIMCanCompareImmediateValueWithRegisterAWithCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2268,7 +2268,7 @@ TEST_F(_8BitALUTests, CPAIMCanCompareImmediateValueWithRegisterAWithHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x40);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_TRUE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2293,7 +2293,7 @@ TEST_F(_8BitALUTests, CPAIMCanCompareImmediateValueWithRegisterAWithoutCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x102);
+	EXPECT_EQ(cpu.regs->pc, 0x102 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2318,7 +2318,7 @@ TEST_F(_8BitALUTests, INCRegisterCanIncreaseRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2342,7 +2342,7 @@ TEST_F(_8BitALUTests, INCRegisterCanIncreaseRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2366,7 +2366,7 @@ TEST_F(_8BitALUTests, INCRegisterCanIncreaseRegisterAHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2391,7 +2391,7 @@ TEST_F(_8BitALUTests, INCRegisterCanIncreaseAddress_HL_)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2416,7 +2416,7 @@ TEST_F(_8BitALUTests, INCRegisterCanIncreaseAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2441,7 +2441,7 @@ TEST_F(_8BitALUTests, INCRegisterCanIncreaseAddress_HL_HalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x10);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_FALSE(cpu.regs->negative);
@@ -2466,7 +2466,7 @@ TEST_F(_8BitALUTests, DECRegisterCanDecreaseRegisterAHalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2490,7 +2490,7 @@ TEST_F(_8BitALUTests, DECRegisterCanDecreaseRegisterAZero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2514,7 +2514,7 @@ TEST_F(_8BitALUTests, DECRegisterCanDecreaseRegisterA)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.regs->A, 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2539,7 +2539,7 @@ TEST_F(_8BitALUTests, DECRegisterCanDecreaseAddress_HL_HalfCarry)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x01);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2564,7 +2564,7 @@ TEST_F(_8BitALUTests, DECRegisterCanDecreaseAddress_HL_Zero)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0x00);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_TRUE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
@@ -2589,7 +2589,7 @@ TEST_F(_8BitALUTests, DECRegisterCanDecreaseAddress_HL_)
 	cpu.execute(opcode, expected_machine_cycles);
 	// then
 	EXPECT_EQ(cpu.mem->read_from_address(0x200), 0xFF);
-	EXPECT_EQ(cpu.regs->pc, 0x101);
+	EXPECT_EQ(cpu.regs->pc, 0x101 + 1);
 	EXPECT_FALSE(cpu.regs->carry);
 	EXPECT_FALSE(cpu.regs->half_carry);
 	EXPECT_TRUE(cpu.regs->negative);
