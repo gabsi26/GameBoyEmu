@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include "memory.h"
+#include "io_register_addresses.h"
 
 namespace GZ80
 {
@@ -86,6 +87,7 @@ namespace GZ80
 		Cycles* cycles;
 		Regs* regs;
 		Memory* mem;
+		Byte IME;
 		void set_carries(Word reg, Word value, Word result, bool lo_carry = true);
 		void set_carries(Byte reg, Byte value, Byte result);
 		void set_carries_borrow(Byte reg, Byte value, Byte result);
@@ -112,6 +114,7 @@ namespace GZ80
 		void test_bit(Byte value, Byte bit);
 		Byte set_bit_mask(Byte bit);
 		Byte reset_bit_mask(Byte bit);
+		void call(Word address);
 		void cb_handler();
 		static constexpr Byte
 			CB_INS = 0xCB,
@@ -661,7 +664,12 @@ namespace GZ80
 			INS_CALL_NZ = 0xC4,
 			INS_CALL_Z = 0xCC,
 			INS_CALL_NC = 0xD4,
-			INS_CALL_C = 0xDC;
+			INS_CALL_C = 0xDC,
+			INS_RET = 0xC9,
+			INS_RET_NZ = 0xC0,
+			INS_RET_Z = 0xC8,
+			INS_RET_NC = 0xD0,
+			INS_RET_C = 0xD8;
 
 	public:
 		CPU();

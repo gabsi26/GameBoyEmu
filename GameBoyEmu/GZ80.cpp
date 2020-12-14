@@ -25,6 +25,7 @@ GZ80::CPU::CPU()
 	cycles = new Cycles();
 	regs = new Regs();
 	mem = new Memory();
+	IME = 0;
 	cycles->reset();
 	regs->reset();
 }
@@ -287,6 +288,12 @@ GZ80::Byte GZ80::CPU::reset_bit_mask(Byte bit)
 {
 	cycles->increment_cycles(1);
 	return ~(1 << bit);
+}
+
+void GZ80::CPU::call(Word address)
+{
+	push_register_onto_stack(regs->pc);
+	regs->pc = address;
 }
 
 void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
@@ -1406,6 +1413,99 @@ void GZ80::CPU::execute(Byte opcode, Word machine_cycles)
 				cycles->increment_cycles(1);
 			} break;
 			// ########## Calls and returns ###########
+			case INS_CALL:
+			{
+				Word address = fetch_word();
+				call(address);
+			} break;
+			case INS_CALL_NZ:
+			{
+				Word address = fetch_word();
+				if (!regs->zero)
+				{
+					call(address);
+				}
+				else
+				{
+					cycles->increment_cycles(1);
+				}
+			} break;
+			case INS_CALL_Z:
+			{
+				Word address = fetch_word();
+				if (regs->zero)
+				{
+					call(address);
+				}
+				else
+				{
+					cycles->increment_cycles(1);
+				}
+			} break;
+			case INS_CALL_NC:
+			{
+				Word address = fetch_word();
+				if (!regs->carry)
+				{
+					call(address);
+				}
+				else
+				{
+					cycles->increment_cycles(1);
+				}
+			} break;
+			case INS_CALL_C:
+			{
+				Word address = fetch_word();
+				if (regs->carry)
+				{
+					call(address);
+				}
+				else
+				{
+					cycles->increment_cycles(1);
+				}
+			} break;
+			// Returns
+			case INS_RET:
+			{
+				pop_value_from_stack(regs->pc);
+				cycles->increment_cycles(1);
+			} break;
+			case INS_RET_NZ:
+			{
+				if (!regs->zero)
+				{
+					pop_value_from_stack(regs->pc);
+				}
+				cycles->increment_cycles(2);
+			} break;
+			case INS_RET_Z:
+			{
+				if (regs->zero)
+				{
+					pop_value_from_stack(regs->pc);
+				}
+				cycles->increment_cycles(2);
+			} break;
+			case INS_RET_NC:
+			{
+				if (!regs->carry)
+				{
+					pop_value_from_stack(regs->pc);
+				}
+				cycles->increment_cycles(2);
+			} break;
+			case INS_RET_C:
+			{
+				if (regs->carry)
+				{
+					pop_value_from_stack(regs->pc);
+				}
+				cycles->increment_cycles(2);
+			} break;
+			
+
 
 
 			case CB_INS:

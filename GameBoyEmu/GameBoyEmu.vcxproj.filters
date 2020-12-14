@@ -21,6 +21,9 @@
     <ClInclude Include="memory.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="special_register_addresses.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GZ80.cpp">

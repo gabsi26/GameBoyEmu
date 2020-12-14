@@ -41,6 +41,7 @@
     <ClCompile Include="8_bit_alu_tests.cpp" />
     <ClCompile Include="8_bit_load_tests.cpp" />
     <ClCompile Include="BitTests.cpp" />
+    <ClCompile Include="call_return_tests.cpp" />
     <ClCompile Include="initialisation_tests.cpp" />
     <ClCompile Include="jump_tests.cpp" />
     <ClCompile Include="pch.cpp">
